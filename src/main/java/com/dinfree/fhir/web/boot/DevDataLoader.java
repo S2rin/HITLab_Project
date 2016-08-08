@@ -42,6 +42,7 @@ public class DevDataLoader {
             GFObservation bloodSugar = new GFBloodSugar(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 70 + i * 3, "김래원");
             observations.add(bloodSugar);
             GFObservation weight = new GFWeight(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 75.0 + i * 1.5, "김래원");
+            observations.add(weight);
         }
 
 
