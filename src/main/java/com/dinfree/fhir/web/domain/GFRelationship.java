@@ -1,17 +1,17 @@
 package com.dinfree.fhir.web.domain;
 
-public class GFContactPerson {
+public class GFRelationship {
     String name;
-    String phone;
+    String telecom;
 
-    public GFContactPerson() {
+    public GFRelationship() {
         this.name = "";
-        this.phone = "";
+        this.telecom = "";
     }
 
-    public GFContactPerson(String name, String phone) {
+    public GFRelationship(String name, String phone) {
         this.name = name;
-        this.phone = phone;
+        this.telecom = phone;
     }
 
     public String getName() {
@@ -22,19 +22,19 @@ public class GFContactPerson {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getTelecom() {
+        return telecom;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setTelecom(String phone) {
+        this.telecom = phone;
     }
 
     @Override
     public String toString() {
         return "ContactPerson{" +
                 "name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
+                ", telecom='" + telecom + '\'' +
                 '}';
     }
 }

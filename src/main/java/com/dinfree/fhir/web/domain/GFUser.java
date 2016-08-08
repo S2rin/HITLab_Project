@@ -12,10 +12,10 @@ public class GFUser extends GFData {
     String birthdate;
     String gender;
     String address;
-    List<String> phone;
-    GFContactPerson contactPerson;
+    List<String> telecom;
+    GFRelationship relationship;
     String careProvider;
-    String careProviderOrganization;
+    String managingOrganization;
 
     public GFUser() {
         super();
@@ -23,52 +23,52 @@ public class GFUser extends GFData {
         this.birthdate = "";
         this.gender = "";
         this.address = "";
-        this.phone = new ArrayList<String>(){ { add(""); } };
-        this.contactPerson = new GFContactPerson(){ { this.name=""; this.phone=""; } };
+        this.telecom = new ArrayList<String>(){ { add(""); } };
+        this.relationship = new GFRelationship(){ { this.name=""; this.telecom=""; } };
         this.careProvider = "";
-        this.careProviderOrganization = "";
+        this.managingOrganization = "";
     }
 
-    public GFUser(String name, String birthdate, String gender, String address, List<String> phone) {
+    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom) {
         this();
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
-        this.phone = phone;
+        this.telecom = telecom;
     }
 
-    public GFUser(String name, String birthdate, String gender, String address, List<String> phone, GFContactPerson contactPerson) {
+    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, GFRelationship relationship) {
         this();
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
-        this.phone = phone;
-        this.contactPerson = contactPerson;
+        this.telecom = telecom;
+        this.relationship = relationship;
     }
 
-    public GFUser(String name, String birthdate, String gender, String address, List<String> phone, String careProviderOrganization, String careProvider) {
+    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, String managingOrganization, String careProvider) {
         this();
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
-        this.phone = phone;
-        this.careProviderOrganization = careProviderOrganization;
+        this.telecom = telecom;
+        this.managingOrganization = managingOrganization;
         this.careProvider = careProvider;
     }
 
-    public GFUser(String name, String birthdate, String gender, String address, List<String> phone, GFContactPerson contactPerson, String careProvider, String careProviderOrganization) {
+    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, GFRelationship relationship, String careProvider, String managingOrganization) {
         this();
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
-        this.phone = phone;
-        this.contactPerson = contactPerson;
+        this.telecom = telecom;
+        this.relationship = relationship;
         this.careProvider = careProvider;
-        this.careProviderOrganization = careProviderOrganization;
+        this.managingOrganization = managingOrganization;
     }
 
     public String getName() {
@@ -103,20 +103,20 @@ public class GFUser extends GFData {
         this.address = address;
     }
 
-    public List<String> getPhone() {
-        return phone;
+    public List<String> getTelecom() {
+        return telecom;
     }
 
-    public void setPhone(List<String> phone) {
-        this.phone = phone;
+    public void setTelecom(List<String> telecom) {
+        this.telecom = telecom;
     }
 
-    public GFContactPerson getContactPerson() {
-        return contactPerson;
+    public GFRelationship getRelationship() {
+        return relationship;
     }
 
-    public void setContactPerson(GFContactPerson contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setRelationship(GFRelationship relationship) {
+        this.relationship = relationship;
     }
 
     public String getCareProvider() {
@@ -127,12 +127,12 @@ public class GFUser extends GFData {
         this.careProvider = careProvider;
     }
 
-    public String getCareProviderOrganization() {
-        return careProviderOrganization;
+    public String getManagingOrganization() {
+        return managingOrganization;
     }
 
-    public void setCareProviderOrganization(String careProviderOrganization) {
-        this.careProviderOrganization = careProviderOrganization;
+    public void setManagingOrganization(String managingOrganization) {
+        this.managingOrganization = managingOrganization;
     }
 
     @Override
@@ -142,10 +142,10 @@ public class GFUser extends GFData {
                 ", birthdate='" + birthdate + '\'' +
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
-                ", phone=" + phone.toString() +
-                ", contactPerson=" + contactPerson.toString() +
+                ", telecom=" + telecom.toString() +
+                ", relationship=" + relationship.toString() +
                 ", careProvider='" + careProvider + '\'' +
-                ", careProviderOrganization='" + careProviderOrganization + '\'' +
+                ", managingOrganization='" + managingOrganization + '\'' +
                 '}';
     }
 }

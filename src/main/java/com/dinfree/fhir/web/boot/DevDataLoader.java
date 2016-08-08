@@ -27,10 +27,10 @@ public class DevDataLoader {
         user.setGender("남성");
         user.setAddress("대한민국 인천");
         user.setBirthdate("1989.12.14");
-        user.setPhone(new ArrayList<String>() { { add("010-7769-1093"); } });
-        user.setContactPerson(new GFContactPerson("이근호", "010-3333-4245"));
+        user.setTelecom(new ArrayList<String>() { { add("010-7769-1093"); } });
+        user.setRelationship(new GFRelationship("이근호", "010-3333-4245"));
         user.setCareProvider("김래원");
-        user.setCareProviderOrganization("길병원");
+        user.setManagingOrganization("길병원");
 
         GFObservation obs1 = new GFObservation();
 
