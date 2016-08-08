@@ -6,7 +6,7 @@ package com.dinfree.fhir.web.config;
  * 본 클래스는 프로젝트에서 필요한 객체들을 초기화 하고 빈 객체를 생성하는 예제 이다.
  */
 import com.dinfree.fhir.web.boot.DevDataLoader;
-import com.dinfree.fhir.web.domain.data.GFData;
+import com.dinfree.fhir.web.component.HospitalResult;
 import com.dinfree.fhir.web.domain.data.observation.GFObservation;
 import com.dinfree.fhir.web.domain.data.user.GFUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ import java.util.ArrayList;
 @Configuration
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    DevDataLoader ddl;
+    @Autowired DevDataLoader ddl;
+    @Autowired HospitalResult hospitalResult;
 
     @Bean(name="observations")
     public ArrayList<GFObservation> getObservations() {
@@ -36,6 +36,11 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public GFUser getUser() {
         return ddl.getUser();
     }
+
+//    @Bean(name="hospitalResult")
+//    public HospitalResult getHospitalResult() {
+//        return hospitalResult;
+//    }
 
     // 결과 출력시 강제로 UTF-8 설정
     @Bean

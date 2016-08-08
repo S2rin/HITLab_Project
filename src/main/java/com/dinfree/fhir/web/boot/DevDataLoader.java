@@ -37,7 +37,7 @@ public class DevDataLoader {
         for(int i = 0; i < 9; i++) {
             GFObservation heartRate = new GFHeartRate(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 64 + i * 2, "김래원", "길병원");
             observations.add(heartRate);
-            GFObservation bloodPressure = new GFBloodPressure(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 110 - i * 3, "김래원", "오른쪽", "서울대병원");
+            GFObservation bloodPressure = new GFBloodPressure(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 110 - i * 3, "김래원", "서울대병원", "오른쪽");
             observations.add(bloodPressure);
             GFObservation bloodSugar = new GFBloodSugar(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 70 + i * 3, "김래원", "성모병원");
             observations.add(bloodSugar);
