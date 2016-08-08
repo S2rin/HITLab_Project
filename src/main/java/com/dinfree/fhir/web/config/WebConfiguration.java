@@ -7,6 +7,8 @@ package com.dinfree.fhir.web.config;
  */
 import com.dinfree.fhir.web.boot.DevDataLoader;
 import com.dinfree.fhir.web.domain.data.GFData;
+import com.dinfree.fhir.web.domain.data.observation.GFObservation;
+import com.dinfree.fhir.web.domain.data.user.GFUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,14 +27,14 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     DevDataLoader ddl;
 
-    @Bean(name="testdata")
-    public ArrayList<GFData> getDDL() {
-        return ddl.getTestData();
+    @Bean(name="observations")
+    public ArrayList<GFObservation> getObservations() {
+        return ddl.getObservations();
     }
 
-    @Bean(name="test")
-    public String getTest() {
-        return "Test Message";
+    @Bean(name="user")
+    public GFUser getUser() {
+        return ddl.getUser();
     }
 
     // 결과 출력시 강제로 UTF-8 설정

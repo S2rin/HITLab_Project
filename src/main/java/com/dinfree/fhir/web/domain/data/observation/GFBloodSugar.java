@@ -17,8 +17,8 @@ public class GFBloodSugar extends GFObservation {
         this.code = LoincCode.BLOODSUGAR;
     }
 
-    public GFBloodSugar(String effective, double value, String performer) {
-        super(effective, value, performer);
+    public GFBloodSugar(String effective, double value, String performer, String managingOrganization) {
+        super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.BLOODSUGAR;
     }

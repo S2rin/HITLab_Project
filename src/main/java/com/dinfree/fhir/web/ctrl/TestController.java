@@ -2,6 +2,8 @@ package com.dinfree.fhir.web.ctrl;
 
 import com.dinfree.fhir.web.boot.DevDataLoader;
 import com.dinfree.fhir.web.domain.TestObj;
+import com.dinfree.fhir.web.domain.data.observation.GFObservation;
+import com.dinfree.fhir.web.domain.data.user.GFUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,8 +54,8 @@ public class TestController {
      * 단, 특정 요청 없이도 동작하게 하려면 이와 같이 해야 함.
      * @return
      */
-    @ModelAttribute("testdata2")
-    public ArrayList<TestObj> getData() {
-        return ddl.getTestData();
+    @ModelAttribute("user")
+    public GFUser getUser() {
+        return ddl.getUser();
     }
 }

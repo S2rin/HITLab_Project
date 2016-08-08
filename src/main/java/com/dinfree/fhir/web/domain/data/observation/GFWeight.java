@@ -17,8 +17,8 @@ public class GFWeight extends GFObservation {
         this.code = LoincCode.WEIGHT;
     }
 
-    public GFWeight(String effective, double value, String performer) {
-        super(effective, value, performer);
+    public GFWeight(String effective, double value, String performer, String managingOrganization) {
+        super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.WEIGHT;
     }

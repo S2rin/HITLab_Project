@@ -19,8 +19,8 @@ public class GFBloodPressure extends GFObservation {
         this.bodySite = "";
     }
 
-    public GFBloodPressure(String effective, double value, String performer, String bodySite) {
-        super(effective, value, performer);
+    public GFBloodPressure(String effective, double value, String performer, String managingOrganization, String bodySite) {
+        super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.BLOODPRESSURE;
         this.bodySite = bodySite;

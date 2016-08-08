@@ -14,6 +14,7 @@ public abstract class GFObservation extends GFData {
     double value;
     String performer;
     Interpretation interpretation;
+    String managingOrganization;
     public abstract Interpretation calcInterpretation();
 
     public GFObservation() {
@@ -25,6 +26,7 @@ public abstract class GFObservation extends GFData {
         this.value = 0;
         this.performer = "";
         this.interpretation = Interpretation.NORMAL;
+        this.managingOrganization = "";
     }
 
     public GFObservation(String effective, double value, String performer) {
@@ -32,7 +34,16 @@ public abstract class GFObservation extends GFData {
         this.effective = effective;
         this.value = value;
         this.performer = performer;
-        this.interpretation = interpretation;
+        // this.interpretation = calcInterpretation();
+    }
+
+    public GFObservation(String effective, double value, String performer, String managingOrganization) {
+        this();
+        this.effective = effective;
+        this.value = value;
+        this.performer = performer;
+        // this.interpretation = calcInterpretation();
+        this.managingOrganization = managingOrganization;
     }
 
     public static int getTotalNum() {
@@ -81,6 +92,14 @@ public abstract class GFObservation extends GFData {
 
     public Interpretation getInterpretation() {
         return interpretation;
+    }
+
+    public String getManagingOrganization() {
+        return managingOrganization;
+    }
+
+    public void setManagingOrganization(String managingOrganization) {
+        this.managingOrganization = managingOrganization;
     }
 
     @Override

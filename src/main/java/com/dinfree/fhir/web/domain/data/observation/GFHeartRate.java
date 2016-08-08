@@ -17,8 +17,8 @@ public class GFHeartRate extends GFObservation {
         this.code = LoincCode.HEARTRATE;
     }
 
-    public GFHeartRate(String effective, double value, String performer) {
-        super(effective, value, performer);
+    public GFHeartRate(String effective, double value, String performer, String managingOrganization) {
+        super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.HEARTRATE;
     }
