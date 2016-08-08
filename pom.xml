@@ -49,8 +49,26 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--
+			Spring Actuator(서비스 상태 계측등의 서비스 운영 지우너을 위한 정보 제공 기능
+			loacalhost:8080/ 다음에 다음 주소들 이용
+			env, health, metrics, mappings, dump, beans, trace
 
-		<!-- HAPI FHIR0 -->
+			env 스프링: Environment의 프로퍼티 목록,
+			health: 어플리케이션 Health 상태 정보,
+			metrics: 계측 정보,
+			mappings: 웹 경로 매핑 정보,
+			dump: 쓰레드 덤프,
+			beans: bean 목록 정보,
+			trace: 최근 HTTP 요청 목록 표시(100개)
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+
+		<!-- HAPI FHIR -->
 		<dependency>
 			<groupId>ca.uhn.hapi.fhir</groupId>
 			<artifactId>hapi-fhir-base</artifactId>

@@ -3,60 +3,31 @@
 <head lang="en">
 </head>
 <body>
+    <!--header -->
+    <header class="main-header" style="background-image: url(http://www.placehold.it/1024x200);">
+        <!-- Logo -->
+        <a href="main.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>HIT</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>HIT</b>Admin</span>
+        </a>
 
-<div class="container">
-    <div th:fragment="header">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#" th:href="@{/url}">Menu1</a></li>
-                        <li><a href="#" th:href="@{/url}">Menu2</a></li>
-                    </ul>
-
-                </div>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <button type="button" class="btn btn-default" aria-label="Center Align">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"> 로그아웃</span>
+                    </button>
+                </ul>
             </div>
         </nav>
-
-        <div class="jumbotron">
-            <div class="row text-center">
-                <!-- Spring MVC 모델 객체 참조 -->
-                <div>
-                    <h2>Gachon FHIR Web Client - Sample</h2>
-
-                    <p th:text="'Hello:'+ ${name}" />
-                </div>
-            </div>
-
-            <div class="row text-center">
-                <img src="../../static/img/gachon.png" th:width="200" th:height="100"
-                     th:src="@{/img/gachon.png}"/>
-            </div>
-
-            <!-- 명시적 Spring 모델 객체 참조 -->
-            <H2>스프링 Bean 객체를 이용한 데이터 처리</H2>
-            <div class="row text-center">
-                <ul>
-                    <li th:each="obj : ${@testdata}" th:text="${obj.name}" />
-                </ul>
-            </div>
-
-            <!-- 명시적 Spring 모델 객체 참조 -->
-            <H2>컨트롤러에서 명시적 ModelAttribute 를 통한 데이터 처리</H2>
-            <div class="row text-center">
-                <ul>
-                    <li th:each="obj : ${testdata2}" th:text="${obj.name}" />
-                </ul>
-            </div>
-
-            <!-- Spring Bean 객체 참조 -->
-            <H2>단순 스프링 Bean 객체 참조</H2>
-            <div class="row text-center">
-                <p th:text="${@test}" />
-            </div>
-        </div>
-    </div>
-</div>
+    </header>
 </body>
 </html>
