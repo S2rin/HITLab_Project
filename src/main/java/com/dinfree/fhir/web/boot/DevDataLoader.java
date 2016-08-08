@@ -1,6 +1,6 @@
 package com.dinfree.fhir.web.boot;
 
-import com.dinfree.fhir.web.domain.TestObj;
+import com.dinfree.fhir.web.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,15 +15,28 @@ import java.util.ArrayList;
 @Component
 public class DevDataLoader {
 
-    private ArrayList<TestObj> testdata = new ArrayList<>();
+    private ArrayList<GFData> testdata = new ArrayList<>();
 
     /**
      * 생성자에서 객체 리스트 생성
      */
     public DevDataLoader() {
-        testdata.add(new TestObj("hong",1));
-        testdata.add(new TestObj("kang",2));
-        testdata.add(new TestObj("kim",3));
+        GFUser user = new GFUser();
+        user.setId(1160);
+        user.setName("이진기");
+        user.setGender("남성");
+        user.setAddress("대한민국 인천");
+        user.setBirthdate("1989.12.14");
+        user.setPhone(new ArrayList<String>() { { add("010-7769-1093"); } });
+        user.setContactPerson(new GFContactPerson("이근호", "010-3333-4245"));
+        user.setCareProvider("김래원");
+        user.setCareProviderOrganization("길병원");
+
+        GFObservation obs1 = new GFObservation();
+
+        testdata.add(user);
+
+
     }
 
     public ArrayList getTestData() {
