@@ -1,6 +1,9 @@
 package com.dinfree.fhir.web.boot;
 
-import com.dinfree.fhir.web.domain.*;
+import com.dinfree.fhir.web.domain.data.GFData;
+import com.dinfree.fhir.web.domain.data.observation.*;
+import com.dinfree.fhir.web.domain.data.user.GFRelationship;
+import com.dinfree.fhir.web.domain.data.user.GFUser;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,13 +18,12 @@ import java.util.ArrayList;
 @Component
 public class DevDataLoader {
 
-    private ArrayList<GFData> testdata = new ArrayList<>();
-
+    private GFUser user = new GFUser();
+    private ArrayList<GFObservation> observations = new ArrayList<>();
     /**
      * 생성자에서 객체 리스트 생성
      */
     public DevDataLoader() {
-        GFUser user = new GFUser();
         user.setId(1160);
         user.setName("이진기");
         user.setGender("남성");
@@ -32,14 +34,21 @@ public class DevDataLoader {
         user.setCareProvider("김래원");
         user.setManagingOrganization("길병원");
 
-        GFObservation obs1 = new GFObservation();
-
-        testdata.add(user);
+        for(int i = 0; i < 9; i++) {
+            GFObservation heartRate = new GFHeartRate(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 64 + i * 2, "김래원");
+            observations.add(heartRate);
+            GFObservation bloodPressure = new GFBloodPressure(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 110 - i * 3, "김래원", "오른쪽");
+            observations.add(bloodPressure);
+            GFObservation bloodSugar = new GFBloodSugar(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 70 + i * 3, "김래원");
+            observations.add(bloodSugar);
+            GFObservation weight = new GFWeight(("2016-08-0" + 1 + i +"T12:03:00.003+09:00"), 75.0 + i * 1.5, "김래원");
+        }
 
 
     }
 
-    public ArrayList getTestData() {
-        return testdata;
-    }
+    public GFUser getUser() { return user; }
+
+    public ArrayList<GFObservation> getObservations() { return  observations; }
+
 }

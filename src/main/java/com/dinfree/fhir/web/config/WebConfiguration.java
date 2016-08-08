@@ -6,7 +6,7 @@ package com.dinfree.fhir.web.config;
  * 본 클래스는 프로젝트에서 필요한 객체들을 초기화 하고 빈 객체를 생성하는 예제 이다.
  */
 import com.dinfree.fhir.web.boot.DevDataLoader;
-import com.dinfree.fhir.web.domain.GFData;
+import com.dinfree.fhir.web.domain.data.GFData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

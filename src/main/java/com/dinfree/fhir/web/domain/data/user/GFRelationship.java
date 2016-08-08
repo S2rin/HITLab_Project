@@ -1,4 +1,4 @@
-package com.dinfree.fhir.web.domain;
+package com.dinfree.fhir.web.domain.data.user;
 
 public class GFRelationship {
     String name;

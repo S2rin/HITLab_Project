@@ -1,4 +1,6 @@
-package com.dinfree.fhir.web.domain;
+package com.dinfree.fhir.web.domain.data.user;
+
+import com.dinfree.fhir.web.domain.data.GFData;
 
 import java.util.ArrayList;
 import java.util.List;
