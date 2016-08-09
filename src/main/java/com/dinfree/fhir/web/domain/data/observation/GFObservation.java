@@ -68,6 +68,10 @@ public abstract class GFObservation extends GFData {
         this.code = code;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
     public String getEffective() {
         return effective;
     }
