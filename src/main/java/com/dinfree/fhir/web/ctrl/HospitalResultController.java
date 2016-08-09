@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
@@ -22,13 +23,19 @@ public class HospitalResultController {
     @Autowired DevDataLoader ddl;
     @Autowired HospitalResult hospitalResult;
 
-    @RequestMapping("/")
-    String index(Model model) {
-
-        for (GFObservation obs : ddl.getObservations()) {
-            if(obs.getManagingOrganization().equals("길병원")) {
-                hospitalResult.getHospitalResult().add(obs);
-            }
+    @RequestMapping("/hospitalResult")
+    String index(@RequestParam(value = "hospital", required = false, defaultValue = "all")String hospital , Model model) {
+        model.addAttribute("hospital", hospital);
+        if (hospital.equals("all")) {
+            hospitalResult.getHospitalResult().clear();
+            hospitalResult.getHospitalResult().addAll(ddl.getObservations());
+        } else {
+            hospitalResult.getHospitalResult().clear();
+            ddl.getObservations().forEach(obs -> {
+                if (hospital.equals(obs.getManagingOrganization())) {
+                    hospitalResult.getHospitalResult().add(obs);
+                }
+            });
         }
 
         return "hospitalResult";
