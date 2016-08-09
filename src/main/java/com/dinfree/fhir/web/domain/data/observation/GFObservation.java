@@ -12,6 +12,7 @@ public abstract class GFObservation extends GFData {
     LoincCode code;
     String effective;
     double value;
+    String unit;
     String performer;
     Interpretation interpretation;
     String managingOrganization;
@@ -21,7 +22,8 @@ public abstract class GFObservation extends GFData {
         super();
         this.patientId = 0;
         this.totalNum++;
-        this.code = LoincCode.BLOODPRESSURE;
+        this.code = LoincCode.NULL;
+        this.unit = "";
         this.effective = "";
         this.value = 0;
         this.performer = "";

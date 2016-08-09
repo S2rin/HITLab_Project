@@ -16,6 +16,7 @@ public class GFBloodPressure extends GFObservation {
         super();
         this.totalNum++;
         this.code = LoincCode.BLOODPRESSURE;
+        this.unit = "mmHg";
         this.bodySite = "";
     }
 
@@ -23,6 +24,7 @@ public class GFBloodPressure extends GFObservation {
         super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.BLOODPRESSURE;
+        this.unit = "mmHg";
         this.bodySite = bodySite;
     }
 

@@ -15,12 +15,14 @@ public class GFWeight extends GFObservation {
         super();
         this.totalNum++;
         this.code = LoincCode.WEIGHT;
+        this.unit = "Kg";
     }
 
     public GFWeight(String effective, double value, String performer, String managingOrganization) {
         super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.WEIGHT;
+        this.unit = "Kg";
     }
 
     public int getObsTotalNum() { return super.getTotalNum(); }

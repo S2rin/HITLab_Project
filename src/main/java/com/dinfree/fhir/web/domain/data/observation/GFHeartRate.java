@@ -15,12 +15,14 @@ public class GFHeartRate extends GFObservation {
         super();
         this.totalNum++;
         this.code = LoincCode.HEARTRATE;
+        this.unit = "bpm";
     }
 
     public GFHeartRate(String effective, double value, String performer, String managingOrganization) {
         super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.HEARTRATE;
+        this.unit = "bpm";
     }
 
     public int getObsTotalNum() { return super.getTotalNum(); }

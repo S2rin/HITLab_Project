@@ -30,11 +30,11 @@
 
                 </thead>
 
-                <tbody>
+                <tbody th:each="obj: ${@hospitalResult.getHospitalResult()}">
                 <tr>
-                    <td>2015.3.4</td>
-                    <td>혈당</td>
-                    <td>122mg/dl</td>
+                    <td th:text="${'value:' + obj.getEffective()}">2015.3.4</td>
+                    <td th:text="${'value:' + obj.getCode()}">혈당</td>
+                    <td th:text="${'value:' + obj.getValue()}">122mg/dl</td>
                     <td>공복:110/식후:140미만정상</td>
                     <td>고혈당</td>
                     <td>길병원</td>

@@ -15,12 +15,14 @@ public class GFBloodSugar extends GFObservation {
         super();
         this.totalNum++;
         this.code = LoincCode.BLOODSUGAR;
+        this.unit = "mg/dl";
     }
 
     public GFBloodSugar(String effective, double value, String performer, String managingOrganization) {
         super(effective, value, performer, managingOrganization);
         this.totalNum++;
         this.code = LoincCode.BLOODSUGAR;
+        this.unit = "mg/dl";
     }
 
     public int getObsTotalNum() { return super.getTotalNum(); }
