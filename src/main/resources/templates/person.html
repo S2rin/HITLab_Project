@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,8 +10,31 @@
 <body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
   <!--header -->
-  <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+  <header class="main-header" style="background-image: url(http://www.placehold.it/1024x200);">
+    <!-- Logo -->
+    <a href="main.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>HIT</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>HIT</b>Admin</span>
+    </a>
 
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <button type="button" class="btn btn-default" aria-label="Center Align">
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"> 로그아웃</span>
+          </button>
+        </ul>
+      </div>
+    </nav>
+  </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -39,6 +62,7 @@
             <span>건강정보 조회</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
+        </li>
           <ul class="treeview-menu">
             <li><a href="hospitaldata.html"><i class="fa fa-circle-o"></i> 병원별 검사 결과</a></li>
             <li><a href="blood_sugar.html"><i class="fa fa-circle-o"></i> 혈당</a></li>
@@ -82,43 +106,39 @@
               <table class="table table-bordered">
                 <tr>
                   <th>이름</th>
-                  <td>${@person.getPerson().getName()}</td>
+                  <td th:text="${@person.getPerson().getName()}"></td>
                 </tr>
                 <tr>
                   <th>생년월일</th>
-                  <td>1991.12.25</td>
+                  <td th:text="${@person.getPerson().getBirthdate()}"></td>
                 </tr>
                 <tr>
                   <th>성별</th>
-                  <td>남성</td>
+                  <td th:text="${@person.getPerson().getGender()}"></td>
                 </tr>
                 <tr>
                   <th>주소</th>
-                  <td>경기도 파주시 금촌동 서원마을 703동 1505호</td>
+                  <td th:text="${@person.getPerson().getAddress()}"></td>
                 </tr>
                 <tr>
                   <th>휴대전화</th>
-                  <td>010-1234-1234</td>
-                </tr>
-                <tr>
-                  <th>자택전화</th>
-                  <td>031-123-1234</td>
+                  <td th:text="${@person.getPerson().getTelecom()}"></td>
                 </tr>
                 <tr>
                   <th>보호자이름</th>
-                  <td>임하빈</td>
+                  <td th:text="${@person.getPerson().getRelationship().getName()}"></td>
                 </tr>
                 <tr>
                   <th>보호자번호</th>
-                  <td>010-5678-5678</td>
+                  <td th:text="${@person.getPerson().getRelationship().getTelecom()}"></td>
                 </tr>
                 <tr>
                   <th>주치의</th>
-                  <td>나로호</td>
+                  <td th:text="${@person.getPerson().getCareProvider()}"></td>
                 </tr>
                 <tr>
                   <th>주치의 소속</th>
-                  <td>가천길병원</td>
+                  <td th:text="${@person.getPerson().getManagingOrganization()}"></td>
                 </tr>
               </table>
             </div><!-- /.box-body -->
@@ -147,9 +167,5 @@
 <script src="dist/js/app.min.js"></script>
 <!-- ChartJS 1.0.1 -->
 <script src="plugins/chartjs/Chart.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
 </body>
 </html>
