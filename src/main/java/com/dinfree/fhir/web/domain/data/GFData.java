@@ -3,6 +3,7 @@ package com.dinfree.fhir.web.domain.data;
 /**
  * Created by whitehobbit on 2016. 8. 5..
  */
+
 abstract public class GFData {
     int id;
 

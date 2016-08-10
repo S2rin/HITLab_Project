@@ -1,6 +1,7 @@
 package com.dinfree.fhir.web.domain.data.user;
 
 import com.dinfree.fhir.web.domain.data.GFData;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by whitehobbit on 2016. 8. 4..
  */
-
+@Data
 public class GFUser extends GFData {
     String name;
     String birthdate;

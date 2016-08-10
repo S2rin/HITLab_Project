@@ -49,6 +49,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<!-- 생성자, 게터, 세터 자동 생성 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.10</version>
+		</dependency>
+
 		<!--
 			Spring Actuator(서비스 상태 계측등의 서비스 운영 지우너을 위한 정보 제공 기능
 			loacalhost:8080/ 다음에 다음 주소들 이용

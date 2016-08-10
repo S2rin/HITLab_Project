@@ -2,76 +2,151 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Public FHIR Server by HitSWLab:Dinfree</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
+<!--header -->
+<header class="main-header" style="background-image: url(http://www.placehold.it/1024x200);">
+    <!-- Logo -->
+    <a href="main.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>HIT</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>HIT</b>Admin</span>
+    </a>
 
-<div class="container">
-    <p th:each="obj: ${@hospitalResult.getHospitalResult()}">
-        <span th:text="${'value:' + obj.getValue()}" /> <span th:text="${obj.getManagingOrganization()}"/>
-    </p>
-    <hr/>
-    <div class="box">
-        <div class="box-header">
-            <h5 class="box-title">Data tables</h5>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>검사일자</th>
-                    <th>검사항목</th>
-                    <th>검사결과</th>
-                    <th>기준</th>
-                    <th>결과</th>
-                    <th>병원</th>
-                </tr>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <button type="button" class="btn btn-default" aria-label="Center Align">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"> 로그아웃</span>
+                </button>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">MAIN MENU</li>
+            <li class="treeview">
+                <a href="index.html">
+                    <i class="fa fa-dashboard"></i> <span>Home</span>
+                </a>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i>
+                    <span>건강정보 조회</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+            </li>
+            <ul class="treeview-menu">
+                <li><a href="hospitaldata.html"><i class="fa fa-circle-o"></i> 병원별 검사 결과</a></li>
+                <li><a href="blood_sugar.html"><i class="fa fa-circle-o"></i> 혈당</a></li>
+                <li><a href="blood_pressure.html"><i class="fa fa-circle-o"></i> 혈압</a></li>
+                <li><a href="heartbeat.html"><i class="fa fa-circle-o"></i> 심박</a></li>
+                <li><a href="weight.html"><i class="fa fa-circle-o"></i> 체중</a></li>
+            </ul>
+            </li>
+            <li class="active treeview">
+                <a href="person.html">
+                    <i class="fa fa-edit"></i> <span>개인정보</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            개인정보
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">개인정보</li>
+        </ol>
+    </section>
 
-                </thead>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+    <div class="container">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title">Data tables</h5>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>검사일자</th>
+                        <th>검사항목</th>
+                        <th>검사결과</th>
+                        <th>기준</th>
+                        <th>결과</th>
+                        <th>병원</th>
+                    </tr>
 
-                <tbody>
-                <tr>
-                    <td>2015.3.4</td>
-                    <td>혈당</td>
-                    <td>122mg/dl</td>
-                    <td>공복:110/식후:140미만정상</td>
-                    <td>고혈당</td>
-                    <td>길병원</td>
-                </tr>
-                <tr>
-                    <td>2015.4.4</td>
-                    <td>혈당</td>
-                    <td>90mg/dl</td>
-                    <td>공복:110/식후:140미만정상</td>
-                    <td>정상</td>
-                    <td>서울대 병원</td>
-                </tr>
-                <tr>
-                    <td>2015.5.4</td>
-                    <td>심박</td>
-                    <td>95bpm</td>
-                    <td></td>
-                    <td>정상</td>
-                    <td>연세대 병원</td>
-                </tr>
-                <tr>
-                    <td>2015.6.4</td>
-                    <td>혈압</td>
-                    <td>96mmHg</td>
-                    <td>수축기:120/확장기:80미만 정상</td>
-                    <td>정상</td>
-                    <td>길병원</td>
-                </tr>
+                    </thead>
 
-                </tbody>
-                <tfoot>
+                    <tbody th:each="obj: ${@hospitalResult.getHospitalResult()}">
+                    <tr>
+                        <td th:text="${obj.getEffective()}">2015.3.4</td>
+                        <td th:text="${obj.getCode()}">혈당</td>
+                        <td th:text="${obj.getValue() + obj.getUnit()}">122mg/dl</td>
+                        <td>공복:110/식후:140미만정상</td>
+                        <td th:text="${obj.getInterpretation()}">고혈당</td>
+                        <td th:text="${obj.getManagingOrganization()}">길병원</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
-                </tfoot>
-            </table>
-        </div><!-- /.box-body -->
-    </div><!-- /.box -->
-</div>
 
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js" th:src="@{/dist/js/app.min.js}"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="plugins/chartjs/Chart.min.js" th:src="@{/plugins/chartjs/Chart.min.js}"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="dist/js/pages/dashboard2.js" th:src="@{/dist/js/pages/dashboard2.js}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js" th:src="@{/dist/js/demo.js}"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="../../plugins/chartjs/Chart.min.js" th:src="@{/plugins/chartjs/Chart.min.js}"></script>
 </body>
 </html>
