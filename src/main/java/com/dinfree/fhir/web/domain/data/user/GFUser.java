@@ -1,8 +1,10 @@
 package com.dinfree.fhir.web.domain.data.user;
 
 import com.dinfree.fhir.web.domain.data.GFData;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,84 +74,6 @@ public class GFUser extends GFData {
         this.relationship = relationship;
         this.careProvider = careProvider;
         this.managingOrganization = managingOrganization;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<String> getTelecom() {
-        return telecom;
-    }
-
-    public void setTelecom(List<String> telecom) {
-        this.telecom = telecom;
-    }
-
-    public GFRelationship getRelationship() {
-        return relationship;
-    }
-
-    public void setRelationship(GFRelationship relationship) {
-        this.relationship = relationship;
-    }
-
-    public String getCareProvider() {
-        return careProvider;
-    }
-
-    public void setCareProvider(String careProvider) {
-        this.careProvider = careProvider;
-    }
-
-    public String getManagingOrganization() {
-        return managingOrganization;
-    }
-
-    public void setManagingOrganization(String managingOrganization) {
-        this.managingOrganization = managingOrganization;
-    }
-
-    @Override
-    public String toString() {
-        return "GFUser{" +
-                "name='" + name + '\'' +
-                ", birthdate='" + birthdate + '\'' +
-                ", gender='" + gender + '\'' +
-                ", address='" + address + '\'' +
-                ", telecom=" + telecom.toString() +
-                ", relationship=" + relationship.toString() +
-                ", careProvider='" + careProvider + '\'' +
-                ", managingOrganization='" + managingOrganization + '\'' +
-                '}';
     }
 }
 

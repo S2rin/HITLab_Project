@@ -1,8 +1,14 @@
 package com.dinfree.fhir.web.domain.data.observation;
 
+import lombok.Data;
+
+import java.text.ParseException;
+
 /**
  * Created by whitehobbit on 2016. 8. 8..
  */
+
+@Data
 public class GFHeartRate extends GFObservation {
     public static int totalNum = 0;
 
@@ -14,14 +20,14 @@ public class GFHeartRate extends GFObservation {
     public GFHeartRate() {
         super();
         this.totalNum++;
-        this.code = LoincCode.HEARTRATE;
+        this.code = LoincCode.HeartRate;
         this.unit = "bpm";
     }
 
-    public GFHeartRate(String effective, double value, String performer, String managingOrganization) {
+    public GFHeartRate(String effective, double value, String performer, String managingOrganization) throws ParseException {
         super(effective, value, performer, managingOrganization);
         this.totalNum++;
-        this.code = LoincCode.HEARTRATE;
+        this.code = LoincCode.HeartRate;
         this.unit = "bpm";
     }
 

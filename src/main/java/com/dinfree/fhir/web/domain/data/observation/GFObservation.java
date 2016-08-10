@@ -1,39 +1,52 @@
 package com.dinfree.fhir.web.domain.data.observation;
 
 import com.dinfree.fhir.web.domain.data.GFData;
+import lombok.Data;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by whitehobbit on 2016. 8. 4..
  */
 
+@Data
 public abstract class GFObservation extends GFData {
     static int totalNum = 0;
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     int patientId;
     LoincCode code;
-    String effective;
+    Date effective;
     double value;
     String unit;
     String performer;
     Interpretation interpretation;
     String managingOrganization;
+
     public abstract Interpretation calcInterpretation();
 
     public GFObservation() {
         super();
         this.patientId = 0;
         this.totalNum++;
-        this.code = LoincCode.NULL;
+        this.code = LoincCode.Null;
         this.unit = "";
-        this.effective = "";
+        this.effective = new Date();
         this.value = 0;
         this.performer = "";
-        this.interpretation = Interpretation.NORMAL;
+        this.interpretation = Interpretation.NULL;
         this.managingOrganization = "";
     }
 
     public GFObservation(String effective, double value, String performer) {
         this();
-        this.effective = effective;
+        try {
+            this.effective = dateFormat.parse(effective);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.value = value;
         this.performer = performer;
         // this.interpretation = calcInterpretation();
@@ -41,7 +54,11 @@ public abstract class GFObservation extends GFData {
 
     public GFObservation(String effective, double value, String performer, String managingOrganization) {
         this();
-        this.effective = effective;
+        try {
+            this.effective = dateFormat.parse(effective);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.value = value;
         this.performer = performer;
         // this.interpretation = calcInterpretation();
@@ -50,72 +67,5 @@ public abstract class GFObservation extends GFData {
 
     public static int getTotalNum() {
         return totalNum;
-    }
-
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
-
-    public LoincCode getCode() {
-        return code;
-    }
-
-    public void setCode(LoincCode code) {
-        this.code = code;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public String getEffective() {
-        return effective;
-    }
-
-    public void setEffective(String effective) {
-        this.effective = effective;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String getPerformer() {
-        return performer;
-    }
-
-    public void setPerformer(String performer) {
-        this.performer = performer;
-    }
-
-    public Interpretation getInterpretation() {
-        return interpretation;
-    }
-
-    public String getManagingOrganization() {
-        return managingOrganization;
-    }
-
-    public void setManagingOrganization(String managingOrganization) {
-        this.managingOrganization = managingOrganization;
-    }
-
-    @Override
-    public String toString() {
-        return "GFObservation{" +
-                "code=" + code +
-                ", effective='" + effective + '\'' +
-                ", value='" + value + '\'' +
-                ", performer='" + performer + '\'' +
-                ", interpretation=" + interpretation +
-                '}';
     }
 }

@@ -6,6 +6,7 @@ import com.dinfree.fhir.web.domain.data.user.GFRelationship;
 import com.dinfree.fhir.web.domain.data.user.GFUser;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -34,14 +35,37 @@ public class DevDataLoader {
         user.setCareProvider("김래원");
         user.setManagingOrganization("길병원");
 
+        String[] hospital = {"길병원", "서울대병원", "성모병원"};
+
         for(int i = 0; i < 9; i++) {
-            GFObservation heartRate = new GFHeartRate(("2016-08-0" + 1 + i +"T12:03:00+09:00"), 64 + i * 2, "김래원", "길병원");
+            String date = "2016-08-0" + i + "T0" + i + ":0" + i + ":0" + i + ".00" + i + "+09:00";
+            GFObservation heartRate = null;
+            try {
+                heartRate = new GFHeartRate(date, 64 + i * 2, "김래원", hospital[i%3]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             observations.add(heartRate);
-            GFObservation bloodPressure = new GFBloodPressure(("2016-08-0" + 1 + i +"T12:03:00+09:00"), 110 - i * 3, "김래원", "서울대병원", "오른쪽");
+            GFObservation bloodPressure = null;
+            try {
+                bloodPressure = new GFBloodPressure(date, 110 - i * 3, "김래원", hospital[(i+1)%3], "오른쪽");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             observations.add(bloodPressure);
-            GFObservation bloodSugar = new GFBloodSugar(("2016-08-0" + 1 + i +"T12:03:00+09:00"), 70 + i * 3, "김래원", "성모병원");
+            GFObservation bloodSugar = null;
+            try {
+                bloodSugar = new GFBloodSugar(date, 70 + i * 3, "김래원", hospital[(i+2)%3]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             observations.add(bloodSugar);
-            GFObservation weight = new GFWeight(("2016-08-0" + 1 + i +"T12:03:00+09:00"), 75.0 + i * 1.5, "김래원", "길병원");
+            GFObservation weight = null;
+            try {
+                weight = new GFWeight(date, 75.0 + i * 1.5, "김래원", "길병원");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             observations.add(weight);
         }
 

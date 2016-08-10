@@ -1,8 +1,14 @@
 package com.dinfree.fhir.web.domain.data.observation;
 
+import lombok.Data;
+
+import java.text.ParseException;
+
 /**
  * Created by whitehobbit on 2016. 8. 8..
  */
+
+@Data
 public class GFWeight extends GFObservation {
     public static int totalNum = 0;
 
@@ -14,14 +20,14 @@ public class GFWeight extends GFObservation {
     public GFWeight() {
         super();
         this.totalNum++;
-        this.code = LoincCode.WEIGHT;
+        this.code = LoincCode.Weight;
         this.unit = "Kg";
     }
 
-    public GFWeight(String effective, double value, String performer, String managingOrganization) {
+    public GFWeight(String effective, double value, String performer, String managingOrganization) throws ParseException {
         super(effective, value, performer, managingOrganization);
         this.totalNum++;
-        this.code = LoincCode.WEIGHT;
+        this.code = LoincCode.Weight;
         this.unit = "Kg";
     }
 
@@ -30,5 +36,4 @@ public class GFWeight extends GFObservation {
     public static int getTotalNum() {
         return totalNum;
     }
-
 }

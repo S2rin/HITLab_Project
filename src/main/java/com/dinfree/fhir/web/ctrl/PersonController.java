@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class PersonController {
     @Autowired DevDataLoader ddl;
 
-    @RequestMapping("/Person")
+    @RequestMapping("/person")
     String index(Model model){
         model.addAttribute("pat",ddl.getUser());
         return "person";
