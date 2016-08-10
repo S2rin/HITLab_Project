@@ -91,6 +91,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">개인정보</li>
+        <li class="active">개인정보</li>
       </ol>
     </section>
 
@@ -106,39 +107,39 @@
               <table class="table table-bordered">
                 <tr>
                   <th>이름</th>
-                  <td th:text="${@person.getPerson().getName()}"></td>
+                  <td th:text="${pat.name}"></td>
                 </tr>
                 <tr>
                   <th>생년월일</th>
-                  <td th:text="${@person.getPerson().getBirthdate()}"></td>
+                  <td th:text="${pat.birthdate}"></td>
                 </tr>
                 <tr>
                   <th>성별</th>
-                  <td th:text="${@person.getPerson().getGender()}"></td>
+                  <td th:text="${pat.gender}"></td>
                 </tr>
                 <tr>
                   <th>주소</th>
-                  <td th:text="${@person.getPerson().getAddress()}"></td>
+                  <td th:text="${pat.address}"></td>
                 </tr>
                 <tr>
                   <th>휴대전화</th>
-                  <td th:text="${@person.getPerson().getTelecom()}"></td>
+                  <td th:text="${pat.telecom}"></td>
                 </tr>
                 <tr>
                   <th>보호자이름</th>
-                  <td th:text="${@person.getPerson().getRelationship().getName()}"></td>
+                  <td th:text="${pat.relationship.name}"></td>
                 </tr>
                 <tr>
                   <th>보호자번호</th>
-                  <td th:text="${@person.getPerson().getRelationship().getTelecom()}"></td>
+                  <td th:text="${pat.relationship.telecom}"></td>
                 </tr>
                 <tr>
                   <th>주치의</th>
-                  <td th:text="${@person.getPerson().getCareProvider()}"></td>
+                  <td th:text="${pat.careProvider}"></td>
                 </tr>
                 <tr>
                   <th>주치의 소속</th>
-                  <td th:text="${@person.getPerson().getManagingOrganization()}"></td>
+                  <td th:text="${pat.managingOrganization}"></td>
                 </tr>
               </table>
             </div><!-- /.box-body -->

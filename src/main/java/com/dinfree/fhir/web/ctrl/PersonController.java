@@ -1,7 +1,6 @@
 package com.dinfree.fhir.web.ctrl;
 
 import com.dinfree.fhir.web.boot.DevDataLoader;
-import com.dinfree.fhir.web.component.Person;
 import com.dinfree.fhir.web.domain.data.user.GFUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,17 +16,11 @@ import java.util.ArrayList;
 @Controller
 public class PersonController {
     @Autowired DevDataLoader ddl;
-    @Autowired Person person;
 
     @RequestMapping("/Person")
     String index(Model model){
-        GFUser pat = ddl.getUser();
-        person.setPerson(pat);
+        model.addAttribute("pat",ddl.getUser());
         return "person";
     }
 
-    @ModelAttribute("person")
-    public GFUser getPerson(){
-        return person.getPerson();
-    }
 }
