@@ -64,10 +64,10 @@
           </a>
         </li>
           <ul class="treeview-menu">
-            <li><a href="hospitaldata.html"><i class="fa fa-circle-o"></i> 병원별 검사 결과</a></li>
-            <li><a href="blood_sugar.html"><i class="fa fa-circle-o"></i> 혈당</a></li>
-            <li><a href="blood_pressure.html"><i class="fa fa-circle-o"></i> 혈압</a></li>
-            <li><a href="heartbeat.html"><i class="fa fa-circle-o"></i> 심박</a></li>
+            <li><a href="hospitalResult.html"><i class="fa fa-circle-o"></i> 병원별 검사 결과</a></li>
+            <li><a href="bloodSugar.html"><i class="fa fa-circle-o"></i> 혈당</a></li>
+            <li><a href="bloodPressure.html"><i class="fa fa-circle-o"></i> 혈압</a></li>
+            <li><a href="heartBeat.html"><i class="fa fa-circle-o"></i> 심박</a></li>
             <li><a href="weight.html"><i class="fa fa-circle-o"></i> 체중</a></li>
           </ul>
         </li>
@@ -90,7 +90,6 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">개인정보</li>
         <li class="active">개인정보</li>
       </ol>
     </section>
@@ -157,16 +156,7 @@
   </footer>
 
 </div><!-- ./wrapper -->
-
-<!-- jQuery 2.1.4 -->
-<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<!-- Bootstrap 3.3.5 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="plugins/fastclick/fastclick.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/app.min.js"></script>
-<!-- ChartJS 1.0.1 -->
-<script src="plugins/chartjs/Chart.min.js"></script>
+<!--Script -->
+<th:block th:include="fragments/script :: script"></th:block>
 </body>
 </html>

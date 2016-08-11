@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+<div class="wrapper">
+
+    <!-- header -->
+    <header class="main-header" style="background-image: url(http://www.placehold.it/1024x200);" th:include="fragments/header :: header"></header>
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search..."/>
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">MAIN MENU</li>
+                <li class="treeview">
+                    <a href="index.html">
+                        <i class="fa fa-dashboard"></i> <span>Home</span>
+                    </a>
+                </li>
+                <li class="active treeview">
+                    <a href="#">
+                        <i class="fa fa-laptop"></i>
+                        <span>건강정보 조회</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                </li>
+                <ul class="active treeview-menu">
+                    <li><a href="hospitalResult.html"><i class="fa fa-circle-o"></i> 병원별 검사 결과</a></li>
+                    <li><a href="bloodSugar.html"><i class="fa fa-circle-o"></i> 혈당</a></li>
+                    <li><a href="bloodPressure.html"><i class="fa fa-circle-o"></i> 혈압</a></li>
+                    <li><a href="heartBeat.html"><i class="fa fa-circle-o"></i> 심박</a></li>
+                    <li class="active"><a href="weight.html"><i class="fa fa-circle-o"></i> 체중</a></li>
+                </ul>
+                <li class="treeview">
+                    <a href="person.html">
+                        <i class="fa fa-edit"></i> <span>개인정보</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                체중(Body Weight)
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">건강정보 조회</a></li>
+                <li class="active">체중</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- LINE CHART -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">체중 차트</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                            <div class="chart" id="line-chart" style="height: 300px;"></div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                    <!--Table -->
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">체중 테이블</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>검사일자</th>
+                                    <th>측정값(kg)</th>
+                                    <th>측정결과</th>
+                                    <th>검사병원</th>
+                                    <th>검사자</th>
+                                </tr>
+                                </thead>
+
+                                <tbody th:each="obj: ${healthDataObs}">
+                                <tr>
+                                    <td th:text="${obj.effective}"></td>
+                                    <td th:text="${obj.testValue+obj.testUnit}"></td>
+                                    <td th:text="${obj.interpretation}"></td>
+                                    <td th:text="${obj.managingOrganization}"></td>
+                                    <td th:text="${obj.performer}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.3.0
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+    </footer>
+</div><!-- ./wrapper -->
+
+<!-- Script -->
+<th:block th:include="fragments/script :: script"></th:block>
+<!-- page script -->
+<script>
+    $(function () {
+        "use strict";
+
+        // LINE CHART
+        var linedata = [
+            {year: '2015-01-13', weight: 50.2},
+            {year: '2015-03-20', weight: 52.7},
+            {year: '2015-05-08', weight: 51.3},
+            {year: '2015-08-01', weight: 52.8},
+            {year: '2015-10-29', weight: 51.7},
+            {year: '2015-11-15', weight: 53.0},
+            {year: '2015-12-18', weight: 53.2},
+            {year: '2016-04-05', weight: 54.5},
+            {year: '2016-06-21', weight: 53.8},
+            {year: '2016-08-22', weight: 52.4}
+        ];
+        var line = new Morris.Line({
+            element: 'line-chart',
+            resize: true,
+            data: linedata,
+            xkey: 'year',
+            ykeys: ['weight'],
+            labels: ['Weight'],
+            lineColors: ['#3c8dbc'],
+            hideHover: 'auto',
+            ymax: 'auto[60]'
+        });
+    });
+</script>
+</body>
+</html>

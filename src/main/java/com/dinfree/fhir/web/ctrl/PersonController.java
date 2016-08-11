@@ -1,6 +1,9 @@
 package com.dinfree.fhir.web.ctrl;
 
+import ca.uhn.fhir.model.dstu2.resource.Observation;
 import com.dinfree.fhir.web.boot.DevDataLoader;
+import com.dinfree.fhir.web.domain.data.observation.GFObservation;
+import com.dinfree.fhir.web.domain.data.observation.Interpretation;
 import com.dinfree.fhir.web.domain.data.user.GFUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +17,13 @@ import java.util.ArrayList;
  * Created by HITLab03 on 2016-08-09.
  */
 @Controller
-public class PersonController {
+public class  PersonController {
     @Autowired DevDataLoader ddl;
 
     @RequestMapping("/person")
     String index(Model model){
         model.addAttribute("pat",ddl.getUser());
+
         return "person";
     }
 

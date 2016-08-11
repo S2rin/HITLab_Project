@@ -36,7 +36,7 @@ public abstract class GFObservation extends GFData {
         this.effective = new Date();
         this.value = 0;
         this.performer = "";
-        this.interpretation = Interpretation.NULL;
+        this.interpretation = Interpretation.NORMAL;
         this.managingOrganization = "";
     }
 
