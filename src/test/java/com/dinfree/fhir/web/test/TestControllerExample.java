@@ -1,6 +1,8 @@
 package com.dinfree.fhir.web.test;
 
 
+import com.dinfree.fhir.web.boot.DataLoaderExample;
+import com.dinfree.fhir.web.ctrl.ControllerExample;
 import com.dinfree.fhir.web.domain.TestObj;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,6 +98,6 @@ public class TestControllerExample {
 
         // 모델에 저장된 속성값을 가지고와 정상적으로 처리 되었는지 비교함. 컨트롤러에서 기본값은 HITLAB로 되어 있음
         // model 접근을 좀 더 쉽게 할 수 있는 방법이 있는지는 좀 더 찾아봐야 함.
-        assertEquals(result.getModelAndView().getModel().get("name"),"TEST");
+        assertEquals(result.getModelAndView().getModel().get("name"),"HITLab");
     }
 }

@@ -1,13 +1,11 @@
 package com.dinfree.fhir.web.ctrl;
 
-import com.dinfree.fhir.web.boot.DevDataLoader;
+import com.dinfree.fhir.web.boot.DataLoaderExample;
 import com.dinfree.fhir.web.domain.TestObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -24,10 +22,11 @@ import java.util.ArrayList;
  * @author Hee Joung Hwang(hwanghj@gachon.ac.kr)
  */
 @Controller
-public class TestController {
+public class ControllerExample {
 
     // DevDataLoader 매핑
-    @Autowired DevDataLoader ddl;
+    @Autowired
+    DataLoaderExample ddl;
 
     /**
      * Basic Request Mapping Example
@@ -45,6 +44,27 @@ public class TestController {
     String index(@RequestParam(value="name", required=false, defaultValue="HITLAB") String name, Model model) {
         model.addAttribute("name", name);
         return "test";
+    }
+
+    /**
+     * 단순 문자열 리턴 Rest API
+     * @return
+     */
+    @RequestMapping("/hello/test")
+    @ResponseBody
+    String restresp() {
+        return "Hello";
+    }
+
+    /**
+     * 파라미터를 통해 처리된 결과를 json 으로 리턴
+     * @param id
+     * @return
+     */
+    @RequestMapping("/hello/test/{id}")
+    @ResponseBody
+    public ArrayList<TestObj> getAll(@PathVariable String id) {
+        return ddl.getTestData();
     }
 
     /**

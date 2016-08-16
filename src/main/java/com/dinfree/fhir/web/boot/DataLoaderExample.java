@@ -13,20 +13,20 @@ import java.util.ArrayList;
  * @author Hee Joung Hwang(hwanghj@gachon.ac.kr)
  */
 @Component
-public class DevDataLoader {
+public class DataLoaderExample {
 
     private ArrayList<TestObj> testdata = new ArrayList<>();
 
     /**
      * 생성자에서 객체 리스트 생성
      */
-    public DevDataLoader() {
+    public DataLoaderExample() {
         testdata.add(new TestObj("hong",1));
         testdata.add(new TestObj("kang",2));
         testdata.add(new TestObj("kim",3));
     }
 
-    public ArrayList getTestData() {
+    public ArrayList<TestObj> getTestData() {
         return testdata;
     }
 }
