@@ -1,28 +1,14 @@
 package com.dinfree.fhir.web.test;
 
 
-import com.dinfree.fhir.web.boot.DataLoaderExample;
 import com.dinfree.fhir.web.ctrl.ControllerExample;
-import com.dinfree.fhir.web.domain.TestObj;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-
-import java.util.ArrayList;
-
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.iterableWithSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -50,10 +36,50 @@ public class TestRestControllerExample {
     @Test
     public void createTest() throws Exception {
 
-        String resource = "";
-        mvc.perform(post("/restapi/create/"))
+        String resource = "{\n" +
+                "    \"resourceType\":\"Patient\",\n" +
+                "    \"meta\":{\n" +
+                "        \"versionId\":\"1\",\n" +
+                "        \"lastUpdated\":\"2015-12-17T06:45:23.977-05:00\"\n" +
+                "    },\n" +
+                "    \"text\":{\n" +
+                "        \"status\":\"generated\",\n" +
+                "        \"div\":\"<div><div class=\\\"hapiHeaderText\\\"> FREDRICA <b>SMITH </b></div><table class=\\\"hapiPropertyTable\\\"><tbody><tr><td>Identifier</td><td>3333333333</td></tr><tr><td>Address</td><td><span>29 WEST AVENUE </span><br /><span>MALTON </span><span>NORTH YORKSHIRE </span><span>GBR </span></td></tr><tr><td>Date of birth</td><td><span>13 December 1965</span></td></tr></tbody></table></div>\"\n" +
+                "    },\n" +
+                "    \"identifier\":[\n" +
+                "        {\n" +
+                "            \"use\":\"official\",\n" +
+                "            \"system\":\"http://mio-Projekt.org/NHS\",\n" +
+                "            \"value\":\"3333333333\"\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"name\":[\n" +
+                "        {\n" +
+                "            \"family\":[\n" +
+                "                \"HeeJoung\"\n" +
+                "            ],\n" +
+                "            \"given\":[\n" +
+                "                \"Gachon\"\n" +
+                "            ]\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"gender\":\"female\",\n" +
+                "    \"birthDate\":\"1965-12-13\",\n" +
+                "    \"address\":[\n" +
+                "        {\n" +
+                "            \"line\":[\n" +
+                "                \"29 WEST AVENUE\"\n" +
+                "            ],\n" +
+                "            \"city\":\"MALTON\",\n" +
+                "            \"state\":\"NORTH YORKSHIRE\",\n" +
+                "            \"postalCode\":\"YO32 5TT\",\n" +
+                "            \"country\":\"GBR\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+        mvc.perform(post("/restapi/create/")
+                .content(resource))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
 }
