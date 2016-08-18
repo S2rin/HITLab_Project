@@ -67,6 +67,7 @@ public class ControllerExample {
         return ddl.getTestData();
     }
 
+
     /**
      * 모델 객체 생성 -> 컨트롤러와 연관이 있는 경우 사용함 @RequestMapping 에서 Model 객체 리턴해도 동일함
      * 단, 특정 요청 없이도 동작하게 하려면 이와 같이 해야 함.
