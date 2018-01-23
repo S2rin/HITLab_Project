@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        // dataType:json 은 사용하지 말것, 리턴 값이 반드시 json 인 경우
+        $(document).ready(function () {
+            $('#b1').click(function () {
+
+                var request = $.ajax({
+                    url: "/restapi/create",
+                    type: "POST",
+                    data: $("#inform").val(),
+                    contentType: "application/json",
+                    success: function (msg) {
+                        // alert("hello");
+                        $("#result").html(msg);
+                    },
+                    error: function(msg){
+                        $("#result").html(msg);
+                    }
+                });
+            })
+        })
+    </script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HITLab | Web</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- css -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css"/>
+    <link rel="stylesheet" href="bootstrap/css/hitlab.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+</head>
+
+<body id="developer">
+
+<div class="wrapper">
+
+    <!-- header -->
+    <header class="main-header">
+        <a href="create.html" class="logo"><span class="logo-lg"><img src="dist/img/logo.png" alt="HITLAB" /></span></a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="javascript:lnbControls()" class="sidebar-toggle" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <a href="/"/><button type="button" class="btn btn-default btn-gray" aria-label="Center Align"><span class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;로그아웃</span></button>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <div class="search">
+
+            </div>
+            <!-- /.search form -->
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="active treeview"><a href="create.html">Create</a></li>
+                <li class="treeview"><a href="read.html">Read</a></li>
+                <li class="treeview"><a href="update.html">Update</a></li>
+                <li class="treeview"><a href="delete.html">Delete</a></li>
+                <li class="treeview"><a href="history.html">History</a></li>
+                <li class="treeview"><a href="validate.html">Validate</a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1><strong>표준기반 개인 건강정보 관리 플랫폼</strong><span>Gachon FHIR Web Platform</span></h1>
+            <div class="btnset">
+                <a href="http://hl7.org/implement/standards/fhir/patient-example.json.html" target = "_blank" class="btn btn-gray">Patient 샘플 보기</a>
+                <a href="http://hl7.org/implement/standards/fhir/observation-example.json.html" target = "_blank" class="btn btn-gray">Observation 샘플 보기</a>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <h2>Create</h2><h4 style = "margin-top: -10px">Contents 칸에 입력한 Json 형식의 리소스 데이터를 입력하면, 입력한 데이터를 서버에 생성합니다.</h4>
+            <h5> <p>(리소스 데이터에 대한 예는 옆의 Patient 샘플보기, Observation 샘플보기를 참고하세요.)</p></h5>
+            <div class="row" style = "margin-top: 20px">
+                <form method="post" action="/restapi/create">
+                    <div class = "col-md-6">
+                        <div class="boxwrap">
+                            <h4>Contents</h4>
+                            <div class="form-group">
+								<textarea id="inform" name = "inform" class="form-control"
+                                          style = "font-size: 18px; height: 350px"></textarea>
+                                <div class="pull-right">
+                                    <input type="button" id="b1" class="btn btn-orange" value = "CREATE" style=margin:15px;/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "col-md-6">
+                        <div class="boxwrap">
+                            <h4>Result</h4>
+                            <div class="form-group">
+                                <div id="result" class="form-control" style = "font-size: 18px">result value</div>
+                                <div class="pull-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="url pull-right">
+                <p><span>참고 URL</span><a href = "http://hapifhir.io/" target = "_blank">http://hapifhir.io/</a> , <a href = "http://hl7.org/fhir/" target = "_blank">http://hl7.org/fhir/</a><p>
+            </div>
+        </section><!-- /.section -->
+    </div>
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.1
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+    </footer>
+
+</div>
+
+
+<!-- Bootstrap 3.3.5 -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/app.min.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="plugins/chartjs/Chart.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+</body>
+</html>

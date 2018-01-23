@@ -1,30 +1,25 @@
 package com.dinfree.fhir.web.ctrl;
 
-import ca.uhn.fhir.model.dstu2.resource.Observation;
-import com.dinfree.fhir.web.boot.DevDataLoader;
-import com.dinfree.fhir.web.domain.data.observation.GFObservation;
-import com.dinfree.fhir.web.domain.data.observation.Interpretation;
-import com.dinfree.fhir.web.domain.data.user.GFUser;
+import com.dinfree.fhir.web.boot.FhirResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
 
 /**
  * Created by HITLab03 on 2016-08-09.
  */
 @Controller
 public class  PersonController {
-    @Autowired DevDataLoader ddl;
 
-    @RequestMapping("/person")
+    @Autowired
+    FhirResourceLoader ddl;
+
+    @RequestMapping("/personInfo")
     String index(Model model){
         model.addAttribute("pat",ddl.getUser());
 
-        return "person";
+        return "personInfo";
     }
 
 }

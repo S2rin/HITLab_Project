@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>HITLab | Web</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="wrapper">
+    <!-- header -->
+    <header class="main-header" th:include="fragments/header :: header"></header>
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <div class="search">
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search..." />
+							<span class="input-group-btn">
+								<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+							</span>
+                    </div>
+                </form>
+            </div>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="treeview"><a href="index.html" th:href="@{/main}"><i class="fa fa-heart-o"></i><span>Home</span></a></li>
+                <li class="active treeview">
+                    <a href="#">
+                        <i class="fa fa-search"></i>
+                        <span>건강정보 조회</span>
+                    </a>
+                    <ul class="active treeview-menu">
+                        <li><a href="hospitaldata.html" th:href="@{/hospitalResult}">병원별 검사 결과</a></li>
+                        <li><a href="blood_sugar.html" th:href="@{/bloodSugar}">혈당</a></li>
+                        <li><a href="blood_pressure.html" th:href="@{/bloodPressure}">혈압</a></li>
+                        <li class="active"><a href="heartbeat.html" th:href="@{/heartRate}">심박</a></li>
+                        <li><a href="weight.html" th:href="@{/weight}">체중</a></li>
+                    </ul>
+                </li>
+                <li class="treeview"><a href="#" th:href="@{/personInfo}"><i class="fa fa-user"></i> <span>개인정보</span></a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1><strong>표준기반 개인 건강정보 관리 플랫폼</strong><span>Gachon FHIR Web Platform</span></h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="#">건강정보 조회</a></li>
+                <li class="active"><a href="#">심박</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <h2>심박(HeartBeat) </h2>
+            <div class="row">
+                <!-- DATEPICKER -->
+                <div class="col-md-12">
+                    <div class="datebox">
+                        <div class="pull-right">
+                            <div class="div-group pull-left">
+                                <i class="fa fa-calendar" style="padding-right: 10px;padding-top:10px"></i>
+                            </div>
+
+                            <div class="form-group pull-left">
+                                <div class="input-group date">
+                                    <form id="dateForm" name="dateForm" action="heartRate" method="get">
+                                        <input type="hidden" id="startDate" name="startDate" value=""/>
+                                        <input type="hidden" id="endDate" name="endDate" value=""/>
+                                    </form>
+                                    <input type="text" class="form-control pull-right" id="daterange" name="daterange" style="width: 165px"/>
+                                </div>
+                            </div>
+                            <button class="btn btn-orange pull-left" id="btnSubmit" name="btnSubmit">확인</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Chart -->
+                <div class="col-md-12">
+                    <!-- LINE CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">심박 차트</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="chart">
+                                <canvas id="barChart" height="80"></canvas>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                    <!--Table -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">심박 테이블</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered">
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col (RIGHT) -->
+            </div><!-- /.row -->
+
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <strong><a href="http://hitlab.gachon.ac.kr/wordpress/">HITLab-Gachon.Uiv</a>.</strong> All rights reserved.
+    </footer>
+</div><!-- ./wrapper -->
+
+<!-- Script -->
+<th:block th:include="fragments/script :: script"></th:block>
+<!-- datePicker -->
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    $(function() {
+
+        $('input[name="daterange"]').daterangepicker(
+                {
+                    locale:{
+                        applyLabel:'확인',
+                        cancelLabel:'취소',
+                        format:'YYYY-MM-DD'
+                    }
+                }
+        );
+
+        var dateCheck = [[${dateCheck}]];
+
+        if(dateCheck === "today"){
+            var date1 = moment().format('YYYY/MM/DD');
+            var date2 = moment().format('YYYY/MM/DD');
+            $('input[name="daterange"]').val(date1 + ' - ' + date2);
+        }else if(dateCheck === "daterange"){
+            var date1 = moment([[${startDay}]]).format('YYYY/MM/DD');
+            var date2 = moment([[${endDay}]]).format('YYYY/MM/DD');
+            $('input[name="daterange"]').val(date1 + ' - ' + date2);
+        }
+
+        $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+            var date1 = picker.startDate.format('YYYY-MM-DD');
+            var date2 = picker.endDate.format('YYYY-MM-DD');
+            $('#startDate').val(date1);
+            $('#endDate').val(date2);
+        });
+
+    });
+
+    $(document).ready(function() {
+        $("#btnSubmit").click(function(){
+            $('#dateForm').submit();
+        });
+    });
+    /*]]>*/
+</script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    function labelData(){
+        var label = [[${label}]];
+
+        return label;
+    }
+
+    function chartData(){
+        var value = [[${value}]];
+
+        return value;
+    }
+
+    var config = {
+        type: 'line',
+        data: {
+            labels:labelData(),
+            datasets: [{
+                label: "심박(bpm)",
+                data: chartData(),
+                fill: false,
+                lineTension : 0.5,
+                borderColor: "rgba(156,156,122,1)",
+                borderWidth: 3
+            },]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:false,
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    },
+                    ticks:{
+                        display:false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'value'
+                    },
+                    ticks: {
+                        suggestedMin: 40,
+                        suggestedMax: 200,
+                        stepSize:40
+                    }
+                }]
+            }
+        }
+    };
+
+    window.onload = function() {
+        var ctx = document.getElementById("barChart").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+
+    };
+
+    /*]]>*/
+</script>
+<!--Pagination-->
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    var data = [[${dataSet}]];
+
+    var str = data.split(',');
+
+    var strdata = [];
+
+    for(var i=0;i<str.length;i++){
+        var key = [str[i],str[i+1],str[i+2],str[i+3]];
+        strdata.push(key);
+        i=i+3;
+    }
+
+    var sliceData = strdata.slice(0,strdata.length-1);
+
+    $(document).ready(function() {
+        $('#example2').DataTable( {
+            "bFilter": false,
+            "bLengthChange": false,
+            data: sliceData,
+            columns: [
+                { title: "검사일자" },
+                { title: "측정값(kg)"},
+                { title: "검사결과" },
+                { title: "검사병원" },
+            ]
+        } );
+    } );
+    /*]]>*/
+</script>
+</body>
+</html>

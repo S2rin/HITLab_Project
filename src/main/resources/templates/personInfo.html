@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>HITLab | Web</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body id="person">
+
+<div class="wrapper">
+
+    <!-- header -->
+    <header class="main-header" th:include="fragments/header :: header"></header>
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <div class="search">
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search..." />
+                        <span class="input-group-btn">
+								<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+							</span>
+                    </div>
+                </form>
+            </div>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="treeview"><a href="main.html" th:href="@{/main}"><i class="fa fa-heart-o"></i><span>Home</span></a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-search"></i>
+                        <span>건강정보 조회</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="hospitaldata.html" th:href="@{/hospitalResult}">병원별 검사 결과</a></li>
+                        <li><a href="blood_sugar.html" th:href="@{/bloodSugar}">혈당</a></li>
+                        <li><a href="blood_pressure.html" th:href="@{/bloodPressure}">혈압</a></li>
+                        <li><a href="heartbeat.html" th:href="@{/heartRate}">심박</a></li>
+                        <li><a href="weight.html" th:href="@{/weight}">체중</a></li>
+                    </ul>
+                </li>
+                <li class="active treeview"><a href="#" th:href="@{/personInfo}"><i class="fa fa-user"></i> <span>개인정보</span></a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1><strong>표준기반 개인 건강정보 관리 플랫폼</strong><span>Gachon FHIR Web Platform</span></h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li class="active"><a href="#">개인정보</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <h2>개인정보</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">개인정보테이블</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <colgroup>
+                                    <col style="width:13%"/>
+                                    <col style="width:*"/>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>이름</th>
+                                        <td th:text="${pat.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>생년월일</th>
+                                        <td th:text="${pat.birthdate}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>성별</th>
+                                        <td th:text="${pat.gender}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td th:text="${pat.address}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>휴대전화</th>
+                                        <td th:text="${pat.telecom}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>보호자이름</th>
+                                        <td th:text="${pat.contact.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>보호자번호</th>
+                                        <td th:text="${pat.contact.telecom}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>주치의</th>
+                                        <td th:text="${pat.careProvider}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>주치의 소속</th>
+                                        <td th:text="${pat.managingOrganization}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <strong><a href="http://almsaeedstudio.com">HITLab-Gachon.Uiv</a>.</strong> All rights reserved.
+    </footer>
+</div><!-- ./wrapper -->
+
+<!-- Script -->
+<th:block th:include="fragments/script :: script"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>HITLab | Web</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+    <style>
+
+        #main .box .box-body .chart-left {
+            width: 40%;
+        }
+
+        #main .box .box-body .chart-right {
+            width: 55%;
+            margin-left: 5%;
+            margin-top: 5%;
+        }
+
+        #main .box .box-body .chart-data {
+            width: 47.5%;
+            margin: 0 !important;
+        }
+
+        #main .box .widget-user dl.description-block dt img {
+            width: 75%;
+            margin: 12.5%;
+        }
+        #main .box .widget-user dl.description-block dt span {
+            width: 75%;
+            height: 75%;
+            margin: 12.5%;
+        }
+
+        #main .box .widget-user dl.description-block dt div {
+            width: 75%;
+            height: 75%;
+            margin: 12.5%;
+        }
+
+        #chartjs-tooltip {
+            opacity: 1;
+            position: absolute;
+            background: rgba(0, 0, 0, .7);
+            color: white;
+            border-radius: 3px;
+            -webkit-transition: all .1s ease;
+            transition: all .1s ease;
+            pointer-events: none;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+        }
+
+        .chartjs-tooltip-key {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+        }
+    </style>
+</head>
+
+<body id="main">
+
+<div class="wrapper">
+
+    <!-- header -->
+    <header class="main-header" th:include="fragments/header :: header"></header>
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <div class="search">
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search..." />
+                        <span class="input-group-btn">
+								<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+							</span>
+                    </div>
+                </form>
+            </div>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="active treeview"><a href="index.html" th:href="@{/main}"><i class="fa fa-heart-o"></i><span>Home</span></a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-search"></i>
+                        <span>건강정보 조회</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="hospitaldata.html" th:href="@{/hospitalResult}">병원별 검사 결과</a></li>
+                        <li><a href="blood_sugar.html" th:href="@{/bloodSugar}">혈당</a></li>
+                        <li><a href="blood_pressure.html" th:href="@{/bloodPressure}">혈압</a></li>
+                        <li><a href="heartbeat.html" th:href="@{/heartRate}">심박</a></li>
+                        <li><a href="weight.html" th:href="@{/weight}">체중</a></li>
+                    </ul>
+                </li>
+                <li class="treeview"><a href="#" th:href="@{/personInfo}"><i class="fa fa-user"></i> <span>개인정보</span></a></li>
+                <!--<li class="treeview"><a href="#"><i class="fa fa-dropbox"></i> <span>HPA 연동</span></a></li>-->
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1><strong>표준기반 개인 건강정보 관리 플랫폼</strong><span>Gachon FHIR Web Platform</span></h1>
+        </section>
+        <!-- Content Header (Page header) -->
+        <section class="content">
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <!-- AREA CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">총 데이터 수</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="pull-left chart-left">
+                                <div id="canvas-holder" class="pieCanvas">
+                                    <canvas id="allPie" class="pie" width="250" height="250" />
+                                </div>
+                            </div>
+                            <div class="pull-right chart-right">
+                                <div class="row widget-user">
+                                    <dl class="pull-left description-block chart-data">
+                                        <dt class="pull-left chart-data chart-img-area"><img src="dist/img/icon_tint.png" alt=" 혈당" /></dt>
+                                        <dd class="pull-right red chart-data chart-content"><div><strong th:text="${#lists.size(bsObs)}"></strong><span>혈당</span></div></dd>
+                                    </dl>
+                                    <dl class="pull-right description-block chart-data">
+                                        <dt class="pull-left chart-data chart-img-area"><img src="dist/img/icon_pressure.png" alt=" 혈압" /></dt>
+                                        <dd class="pull-right yellow chart-data chart-content"><div><strong th:text="${#lists.size(bpObs)}"></strong><span>혈압</span></div></dd>
+                                    </dl>
+                                </div>
+                                <div class="row widget-user">
+                                    <dl class="pull-left description-block chart-data">
+                                        <dt class="pull-left chart-data chart-img-area"><img src="dist/img/icon_heartbeat.png" alt=" 심박" /></dt>
+                                        <dd class="pull-right khaki chart-data chart-content"><div><strong th:text="${#lists.size(hrObs)}"></strong><span>심박</span></div></dd>
+                                    </dl>
+                                    <dl class="pull-right description-block chart-data">
+                                        <dt class="pull-left chart-data chart-img-area"><img src="dist/img/icon_weight.png" alt=" 체중" /></dt>
+                                        <dd class="pull-right orange chart-data chart-content"><div><strong th:text="${#lists.size(wtObs)}"></strong><span>체중</span></div></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <!-- AREA CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">총 데이터 수</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="pull-left chart-left">
+                                <div id="canvas-holder1" class="pieCanvas">
+                                    <canvas id="allPie1" class="pie" width="250" height="250"/>
+                                </div>
+                                <div id="chartjs-tooltip1"></div>
+                            </div>
+                            <div class="pull-right chart-right">
+                                <div class="row widget-user">
+                                    <dl class="pull-left description-block chart-data">
+                                        <dt class="pull-left chart-data chart-img-area"><img src="dist/img/circle_brown.png" alt=" 길병원" /></dt>
+                                        <dd class="pull-right brown chart-data chart-content"><div><strong th:text="${#lists.size(hosG)}"></strong><span>길병원</span></div></dd>
+                                    </dl>
+                                    <dl class="pull-right description-block chart-data">
+                                        <dt class="pull-left chart-data chart-img-area"><img src="dist/img/circle_kaki2.png" alt=" 성모병원" /></dt>
+                                        <dd class="pull-right green chart-data chart-content"><div><strong th:text="${#lists.size(hosS)}"></strong><span>성모병원</span></div></dd>
+                                    </dl>
+                                </div>
+                                <div class="row widget-user">
+                                    <dl class="pull-left description-block chart-data">
+                                        <dt class="pull-left chart-data chart-img-area"><img src="dist/img/circle_peach.png" alt=" 서울대병원" /></dt>
+                                        <dd class="pull-right peach chart-data chart-content"><div><strong th:text="${#lists.size(hosSn)}"></strong><span>서울대병원</span></div></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+                <!-- /.widget-user -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <!-- AREA CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">혈당(mg/dl)</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="chart">
+                                <canvas id="canvasBS" style="height:250px"></canvas>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+
+                <div class="col-md-12 col-lg-6">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">혈압(mmHg)</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="chart">
+                                <canvas id="canvasBP" style="height:250px"></canvas>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+            </div><!--row-->
+
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">심박(bpm)</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="chart">
+                                <canvas id="canvasH" style="height:250px"></canvas>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+
+                <div class="col-md-12 col-lg-6">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">몸무게(kg)</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="chart">
+                                <canvas id="canvasW" style="height:250px"></canvas>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+            </div><!-- /.row -->
+
+        </section><!-- /.content -->
+    </div>
+
+    <footer class="main-footer">
+        <strong><a href="http://hitlab.gachon.ac.kr/wordpress/">HITLab-Gachon.Uiv</a>.</strong> All rights reserved.
+    </footer>
+
+</div>
+<!-- Script -->
+<th:block th:include="fragments/script :: script"></th:block>
+
+<!-- page script -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    function BSchartData(){
+        var chart = [[${bsvalue}]];
+
+        return chart;
+    }
+
+    function BSlabelData(){
+        var label = [[${bslabel}]];
+
+        return label;
+    }
+
+    var configBS = {
+                type: 'line',
+                data: {
+                    labels:BSlabelData(),
+                    datasets: [{
+                        label: "혈당(mg/dl)",
+                        data: BSchartData(),
+                        fill: false,
+                        lineTension : 0.3,
+                        borderColor: "rgba(220,95,90,1)",
+                        borderWidth: 3
+                    },]
+                },
+                options: {
+                    responsive: true,
+                    title:{
+                        display:false,
+                    },
+                    scales: {
+                        xAxes: [{
+//                    type: "time",
+//                    time:{
+//                        unit: 'month'
+//                    },
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            },
+                            ticks:{
+                                display:false
+//                        stepSize: 'day'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'value'
+                            },
+                            ticks: {
+                                suggestedMin: 50,
+                                suggestedMax: 150,
+                                stepSize:20
+                            }
+                        }]
+                    }
+                }
+    };
+    /*BloodSugar End*/
+
+    function BPchartData(){
+        var chart = [[${bpvalue}]];
+
+        return chart;
+    }
+
+    function BPlabelData(){
+        var label = [[${bplabel}]];
+
+        return label;
+    }
+
+    var configBP = {
+        type: 'line',
+        data: {
+            labels:BPlabelData(),
+            datasets: [{
+                label: "혈압(mmHg)",
+                data: BPchartData(),
+                fill: false,
+                lineTension : 0.5,
+                borderColor: "rgba(227,181,116,1)",
+                borderWidth: 3
+            },]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:false,
+            },
+            scales: {
+                xAxes: [{
+//                    type: "time",
+//                    time:{
+//                        displayFormats:{
+//                            'day':'MMM DD'
+//                        }
+//                    },
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    },
+                    ticks:{
+                        display:false
+//                        stepSize: 'day'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'value'
+                    },
+                    ticks: {
+                        suggestedMin: 40,
+                        suggestedMax: 150,
+                        stepSize:20
+                    }
+                }]
+            }
+        }
+    };
+    /*Blood Pressure End*/
+
+    function HRchartData(){
+        var chart = [[${hrvalue}]];
+
+        return chart;
+    }
+
+    function HRlabelData(){
+        var label = [[${hrlabel}]];
+
+        return label;
+    }
+
+    var configHr = {
+        type: 'line',
+        data: {
+            labels:HRlabelData(),
+            datasets: [{
+                label: "심박(bpm)",
+                data: HRchartData(),
+                fill: false,
+                lineTension : 0.5,
+                borderColor: "rgba(156,156,122,1)",
+                borderWidth: 3
+            },]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:false,
+            },
+            scales: {
+                xAxes: [{
+//                    type: "time",
+//                    time:{
+//                        displayFormats:{
+//                            'day':'MMM DD'
+//                        }
+//                    },
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    },
+                    ticks:{
+                        display:false
+//                        stepSize: 'day'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'value'
+                    },
+                    ticks: {
+                        suggestedMin: 40,
+                        suggestedMax: 200,
+                        stepSize:40
+                    }
+                }]
+            }
+        }
+    };
+    /*HeartRate End*/
+
+    function WTchartData(){
+        var chart = [[${wtvalue}]];
+
+        return chart;
+    }
+
+    function WTlabelData(){
+        var label = [[${wtlabel}]];
+
+        return label;
+    }
+
+    var configW = {
+        type: 'line',
+        data: {
+            labels: WTlabelData(),
+            datasets: [{
+                label: "몸무게(kg)",
+                data: WTchartData(),
+                fill: false,
+                lineTension : 0.3,
+                borderColor: "rgba(255,151,80,1)",
+                borderWidth: 3
+            },]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:false,
+            },
+            scales: {
+                xAxes: [{
+//                    type: "time",
+//                    time:{
+//                        unit: 'month'
+//                    },
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    },
+                    ticks:{
+                        display:false
+//                        stepSize: 'day'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'value'
+                    },
+                    ticks: {
+                        suggestedMin: 45,
+                        suggestedMax: 70,
+                        stepSize:5
+                    }
+                }]
+            }
+        }
+    };
+
+    /*Weight end*/
+
+    $ (function() {
+
+        Chart.defaults.global.tooltips.custom = function(tooltip) {
+
+            // Tooltip Element
+            var tooltipEl = $('#chartjs-tooltip');
+
+            if (!tooltipEl[0]) {
+                $('body').append('<div id="chartjs-tooltip"></div>');
+                tooltipEl = $('#chartjs-tooltip');
+            }
+
+            // Hide if no tooltip
+            if (!tooltip.opacity) {
+                tooltipEl.css({
+                    opacity: 0
+                });
+                $('.chartjs-wrap canvas')
+                        .each(function(index, el) {
+                            $(el).css('cursor', 'default');
+                        });
+                return;
+            }
+
+            $(this._chart.canvas).css('cursor', 'pointer');
+
+            // Set caret Position
+            tooltipEl.removeClass('above below no-transform');
+            if (tooltip.yAlign) {
+                tooltipEl.addClass(tooltip.yAlign);
+            } else {
+                tooltipEl.addClass('no-transform');
+            }
+
+            // Set Text
+            if (tooltip.body) {
+                var innerHtml = [
+                    (tooltip.beforeTitle || []).join('\n'), (tooltip.title || []).join('\n'), (tooltip.afterTitle || []).join('\n'), (tooltip.beforeBody || []).join('\n'), (tooltip.body || []).join('\n'), (tooltip.afterBody || []).join('\n'), (tooltip.beforeFooter || [])
+                            .join('\n'), (tooltip.footer || []).join('\n'), (tooltip.afterFooter || []).join('\n')
+                ];
+                tooltipEl.html(innerHtml.join('\n'));
+            }
+
+            // Find Y Location on page
+            var top = 0;
+            if (tooltip.yAlign) {
+                if (tooltip.yAlign == 'above') {
+                    top = tooltip.y - tooltip.caretHeight - tooltip.caretPadding;
+                } else {
+                    top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding;
+                }
+            }
+
+            var position = $(this._chart.canvas)[0].getBoundingClientRect();
+
+            // Display, position, and set styles for font
+            tooltipEl.css({
+                opacity: 1,
+                width: tooltip.width ? (tooltip.width + 'px') : 'auto',
+                left: position.left + tooltip.x + 'px',
+                top: position.top + top + 'px',
+                fontFamily: tooltip._fontFamily,
+                fontSize: tooltip.fontSize,
+                fontStyle: tooltip._fontStyle,
+                padding: tooltip.yPadding + 'px ' + tooltip.xPadding + 'px',
+            });
+        };
+
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [ /*[[${#lists.size(bsObs)}]] , [[${#lists.size(bpObs)}]] , [[${#lists.size(hrObs)}]] , [[${#lists.size(wtObs)}]]*/
+                    ],backgroundColor: [
+                        "#dc5f5a",
+                        "#e3b574",
+                        "#9c9c7a",
+                        "#ff9750",
+                    ],
+                }],
+                labels: [
+                    "혈당",
+                    "혈압",
+                    "심박",
+                    "체중"
+                ]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: true,
+                }
+            }
+        };
+
+        var config1 = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [ /*[[${#lists.size(hosG)}]] , [[${#lists.size(hosSn)}]] , [[${#lists.size(hosS)}]]*/
+                    ],backgroundColor: [
+                        "#b89d88",
+                        "#f3a388",
+                        "#405953",
+                    ],
+                }],
+                labels: [
+                    "길병원",
+                    "서울대병원",
+                    "성모병원"
+                ]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: true,
+                }
+            }
+        };
+
+        window.onload = function() {
+
+            var ctx = document.getElementById("canvasBS").getContext("2d");
+            window.myLine1 = new Chart(ctx, configBS);
+
+            var ctx2 = document.getElementById("canvasBP").getContext("2d");
+            window.myLine2 = new Chart(ctx2, configBP);
+
+            var ctx3 = document.getElementById("canvasH").getContext("2d");
+            window.myLine3 = new Chart(ctx3, configHr);
+
+            var ctx4 = document.getElementById("canvasW").getContext("2d");
+            window.myLine4 = new Chart(ctx4, configW);
+
+            var ctx5 = document.getElementById("allPie").getContext("2d");
+            window.myPie = new Chart(ctx5, config);
+
+            var ctx6 = document.getElementById("allPie1").getContext("2d");
+            window.myPie = new Chart(ctx6, config1);
+
+        };
+//        $("#allPie").css("width", "100%");
+//        var pieSize = $("#allPie").css("width");
+//        $("#allPie").css("height", pieSize);
+//
+//        $("#canvas-holder1").css("width", "100%");
+//        var canvasSize = $("#canvas-holder1").css("width");
+//        $("#canvas-holder1").css("height", canvasSize+"px");
+//        $("#allPie1").css("width", "100%");
+//        var pieSize = $("#allPie").css("width");
+//        $("#allPie1").css("height", pieSize+"px");
+
+        $(".pie").css("width", "100%");
+        var pieSize = $(".pie").css("width");
+        $(".pie").css("height", pieSize);
+        $(".chart-data-img").css("height", $(".chart-data-img").css("width"));
+        $(".chart-right").css("height", $(".chart-left").css("height"));
+        $(".chart-content").css("height", $(".chart-img-area").css("height"));
+        $(".chart-content div").css("margin", "auto");
+    });
+
+    /*]]>*/
+</script>
+</body>
+</html>

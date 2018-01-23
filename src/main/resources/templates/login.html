@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>HITLab | Web</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+</head>
+
+<body id="login">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1><img src="dist/img/logo_w.png" alt="HITLAB" /></h1>
+        </section>
+        <!-- Content Header (Page header) -->
+        <section class="content">
+            <!-- Main row -->
+            <div class="row">
+                <h2><strong>표준 기반 개인 건강 정보 관리 플랫폼</strong><span>GACHON FHIR WEB PLATFORM</span></h2>
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="btnbox">
+                    <a href="javascript:alert('서비스 준비중입니다.')" class="btn btn-default btn-orange">힐링플랫폼 로그인</a>
+                    <a href="#" class="btn btn-default btn-darkgray" th:href="@{/main}">데모 계정으로 로그인</a>
+                    <a href="#" class="btn btn-default btn-khaki" th:href="@{/create.html}">개발자 모드 로그인</a>
+                </div>
+            </div>
+        </section><!-- /.content -->
+        <!--<section class="content-bottom navbar-fixed-bottom">-->
+            <!--<div class="btnright">-->
+            <!--<a href="#"><img src="dist/img/logo_gachon.png" alt="가천대학교" th:src="@{/dist/img/logo_gachon.png}"/></a>-->
+
+                <!--<a href="#"><img src="dist/img/logo_msip.png" alt="미래창조과학부" th:src="@{/dist/img/logo_msip.png}"/></a>-->
+                <!--<a href="#"><img src="dist/img/logo_etri.png" th:src="@{/dist/img/logo_etri.png}" alt="ETRI 한국전자통신연구원" /></a>-->
+            <!--</div>-->
+        <!--</section>-->
+        <section class="content-bottom">
+            <div class="logoset">
+                <img src="dist/img/logo_gachon.png" alt="가천대학교" th:src="@{/dist/img/logo_gachon.png}" />
+                <div class="btnright pull-right">
+                    <span><img src="dist/img/logo_msip.png" alt="미래창조과학부" th:src="@{/dist/img/logo_msip.png}"/></span><span><img src="dist/img/logo_etri.png" alt="ETRI 한국전자통신연구원" th:src="@{/dist/img/logo_etri.png}"/></span>
+                </div>
+            </div>
+        </section>
+    </div><!-- /.content-wrapper -->
+</div><!-- ./wrapper -->
+
+<!-- Script Link -->
+<th:block th:include="fragments/script :: script"></th:block>
+
+</body>
+</html>

@@ -1,147 +1,156 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head lang="en">
-    <title>Public FHIR Server by HitSWLab:Dinfree</title>
+<head lang="ko">
+    <title>HITLab | Web</title>
+
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
-<body class="skin-black sidebar-mini">
-    <div class="wrapper">
-        <header class="main-header" style="background-image: url(http://www.placehold.it/1024x200);" th:include="fragments/header :: header"></header>
+<body>
 
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- search form -->
+<div class="wrapper">
+
+    <!-- header -->
+    <header class="main-header" th:include="fragments/header :: header"></header>
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <div class="search">
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search..." />
                         <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                        </span>
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                     </span>
                     </div>
                 </form>
-                <!-- /.search form -->
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu">
-                    <li class="header">MAIN MENU</li>
-                    <li class="treeview">
-                        <a href="index.html">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li class="active treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>건강정보 조회</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="active"><a href="hospitalResult.html"><i class="fa fa-circle-o"></i> 병원별 검사 결과</a></li>
-                            <li><a href="bloodSugar.html"><i class="fa fa-circle-o"></i> 혈당</a></li>
-                            <li><a href="bloodPressure.html"><i class="fa fa-circle-o"></i> 혈압</a></li>
-                            <li><a href="heartBeat.html"><i class="fa fa-circle-o"></i> 심박</a></li>
-                            <li><a href="weight.html"><i class="fa fa-circle-o"></i> 체중</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="person.html">
-                            <i class="fa fa-edit"></i> <span>개인정보</span>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-            <!-- /.sidebar -->
-        </aside>
+            </div>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="treeview"><a href="index.html" th:href="@{/main}"><i class="fa fa-heart-o"></i><span>Home</span></a></li>
+                <li class="active treeview">
+                    <a href="#">
+                        <i class="fa fa-search"></i>
+                        <span>건강정보 조회</span>
+                    </a>
+                    <ul class="active treeview-menu">
+                        <li class="active"><a href="hospitaldata.html" th:href="@{/hospitalResult}">병원별 검사 결과</a></li>
+                        <li><a href="blood_sugar.html" th:href="@{/bloodSugar}">혈당</a></li>
+                        <li><a href="blood_pressure.html" th:href="@{/bloodPressure}">혈압</a></li>
+                        <li><a href="heartbeat.html" th:href="@{/heartRate}">심박</a></li>
+                        <li><a href="weight.html" th:href="@{/weight}">체중</a></li>
+                    </ul>
+                </li>
+                <li class="treeview"><a href="#" th:href="@{/personInfo}"><i class="fa fa-user"></i> <span>개인정보</span></a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="width: 100%;">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>병원별 검사 결과</h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-laptop"></i> 건강정보 조회</a></li>
-                    <li class="active"><i class="fa fa-circle-o"></i>병원별 검사 결과</li>
-                </ol>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1><strong>표준기반 개인 건강정보 관리 플랫폼</strong><span>Gachon FHIR Web Platform</span></h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="#">건강정보조회</a></li>
+                <li class="active"><a href="#">병원별 검사결과</a></li>
+            </ol>
+        </section>
 
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" />
-                            길병원
-                        </label>
-                        <label>
-                            <input type="checkbox" />
-                            서울대병원
-                        </label>
-                        <label>
-                            <input type="checkbox" />
-                            성모병원
-                        </label>
+
+        <section class="content">
+            <h2>병원별 검사결과</h2>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h5 class="box-title pull-left">Data tables</h5>
+
+                    <div class="form-group pull-right">
+                        <div class="checkbox">
+                        <form action="hospitalResult" method="get">
+                            <label>
+                                <input name="hospital"  type="checkbox" value="길병원" th:checked="${#lists.contains(hospitals, '길병원')}"/>
+                                길병원
+                            </label>
+                            <label>
+                                <input name="hospital" class="flat-red" type="checkbox" value="서울대병원" th:checked="${#lists.contains(hospitals, '서울대병원')}"/>
+                                서울대병원
+                            </label>
+                            <label>
+                                <input name="hospital" class="flat-red" type="checkbox" value="성모병원" th:checked="${#lists.contains(hospitals, '성모병원')}"/>
+                                성모병원&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <button class="btn btn-orange pull-right" type="submit" value="검색">검색</button>
+                        </form>
                     </div>
                 </div>
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="container">
-                            <div class="box">
-                                <div class="box-header">
-                                    <h5 class="box-title">병원별 검사 결과
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" />
-                                                길병원
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" />
-                                                서울대병원
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" />
-                                                성모병원
-                                            </label>
-                                        </div>
-                                    </h5>
-                                </div>
-                                <div class="box-body">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>검사일자</th>
-                                            <th>검사항목</th>
-                                            <th>검사결과</th>
-                                            <th>기준</th>
-                                            <th>결과</th>
-                                            <th>병원</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody th:each="obj: ${hospitalObs}">
-                                        <tr>
-                                            <td th:text="${obj.effective}">2015.3.4</td>
-                                            <td th:text="${obj.testItem}">혈당</td>
-                                            <td th:text="${obj.testValue + obj.testUnit}">122mg/dl</td>
-                                            <td th:text="${obj.standards}">공복:110/식후:140미만정상</td>
-                                            <td th:text="${obj.interpretation}">고혈당</td>
-                                            <td th:text="${obj.managingOrganization}">길병원</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
-                        </div><!-- /.container -->
-                    </div><!-- /.col-md-12 -->
                 </div>
-            </section>
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col-md-12 -->
+     </div>
+    </section>
         </div>
-    </div>
 
-    <th:block th:include="fragments/script :: script"></th:block>
+        <footer class="main-footer">
+            <strong><a href="http://hitlab.gachon.ac.kr/wordpress/">HITLab-Gachon.Uiv</a>.</strong> All rights reserved.
+        </footer>
+    </div><!-- ./wrapper -->
+<th:block th:include="fragments/script :: script"></th:block>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+        var data = [[${dataSet}]];
+
+        var str = data.split(',');
+
+        var strdata = [];
+
+        for(var i=0;i<str.length;i++){
+            var key = [str[i],str[i+1],str[i+2],str[i+3],str[i+4],str[i+5]];
+            strdata.push(key);
+            i=i+5;
+        }
+
+        var sliceData = strdata.slice(0,strdata.length-1);
+
+        $(document).ready(function() {
+            $('#example2').DataTable( {
+                "bFilter": false,
+                "bLengthChange": false,
+                data: sliceData,
+                columns: [
+                    { title: "검사일자" },
+                    { title: "검사항목" },
+                    { title: "검사결과" },
+                    { title: "기준" },
+                    { title: "결과" },
+                    { title: "병원" }
+                ]
+            } );
+        } );
+    /*]]>*/
+</script>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function(){
+        $('input').iCheck({
+            checkboxClass: 'iradio_flat-red'
+        });
+    });
+    /*]]>*/
+</script>
+
 
 </body>
 </html>

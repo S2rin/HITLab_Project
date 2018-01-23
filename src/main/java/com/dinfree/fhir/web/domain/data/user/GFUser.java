@@ -1,10 +1,8 @@
 package com.dinfree.fhir.web.domain.data.user;
 
 import com.dinfree.fhir.web.domain.data.GFData;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class GFUser extends GFData {
     String gender;
     String address;
     List<String> telecom;
-    GFRelationship relationship;
+    GFContact contact;
     String careProvider;
     String managingOrganization;
 
@@ -29,7 +27,7 @@ public class GFUser extends GFData {
         this.gender = "";
         this.address = "";
         this.telecom = new ArrayList<String>(){ { add(""); } };
-        this.relationship = new GFRelationship(){ { this.name=""; this.telecom=""; } };
+        this.contact = new GFContact(){ { this.name=""; this.telecom=""; } };
         this.careProvider = "";
         this.managingOrganization = "";
     }
@@ -43,14 +41,14 @@ public class GFUser extends GFData {
         this.telecom = telecom;
     }
 
-    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, GFRelationship relationship) {
+    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, GFContact contact) {
         this();
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
         this.telecom = telecom;
-        this.relationship = relationship;
+        this.contact = contact;
     }
 
     public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, String managingOrganization, String careProvider) {
@@ -64,14 +62,14 @@ public class GFUser extends GFData {
         this.careProvider = careProvider;
     }
 
-    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, GFRelationship relationship, String careProvider, String managingOrganization) {
+    public GFUser(String name, String birthdate, String gender, String address, List<String> telecom, GFContact contact, String careProvider, String managingOrganization) {
         this();
         this.name = name;
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
         this.telecom = telecom;
-        this.relationship = relationship;
+        this.contact = contact;
         this.careProvider = careProvider;
         this.managingOrganization = managingOrganization;
     }

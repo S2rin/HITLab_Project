@@ -26,8 +26,16 @@ public class GFBloodPressure extends GFObservation {
         this.bodySite = "";
     }
 
-    public GFBloodPressure(String effective, double value, String performer, String managingOrganization, String bodySite) throws ParseException {
-        super(effective, value, performer, managingOrganization);
+    public GFBloodPressure(String effective, double value, String performer) throws ParseException {
+        super(effective, value, performer);
+        this.totalNum++;
+        this.code = LoincCode.BloodPressure;
+        this.unit = "mmHg";
+        this.bodySite = "";
+    }
+
+    public GFBloodPressure(String effective, double value, String performer, String bodySite) throws ParseException {
+        super(effective, value, performer);
         this.totalNum++;
         this.code = LoincCode.BloodPressure;
         this.unit = "mmHg";

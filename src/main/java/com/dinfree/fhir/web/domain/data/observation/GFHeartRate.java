@@ -24,8 +24,8 @@ public class GFHeartRate extends GFObservation {
         this.unit = "bpm";
     }
 
-    public GFHeartRate(String effective, double value, String performer, String managingOrganization) throws ParseException {
-        super(effective, value, performer, managingOrganization);
+    public GFHeartRate(String effective, double value, String performer) throws ParseException {
+        super(effective, value, performer);
         this.totalNum++;
         this.code = LoincCode.HeartRate;
         this.unit = "bpm";

@@ -24,8 +24,8 @@ public class GFWeight extends GFObservation {
         this.unit = "Kg";
     }
 
-    public GFWeight(String effective, double value, String performer, String managingOrganization) throws ParseException {
-        super(effective, value, performer, managingOrganization);
+    public GFWeight(String effective, double value, String performer) throws ParseException {
+        super(effective, value, performer);
         this.totalNum++;
         this.code = LoincCode.Weight;
         this.unit = "Kg";

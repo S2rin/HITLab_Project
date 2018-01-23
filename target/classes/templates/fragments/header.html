@@ -1,27 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <!--header -->
-    <header class="main-header" style="background-image: url(http://www.placehold.it/1024x200);" th:fragment="header">
-        <!-- Logo -->
-        <a href="main.html" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>HIT</b></span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>HIT</b>Admin</span>
-        </a>
-
-        <!-- Header Navbar: style can be found in header.less -->
+    <!-- header -->
+    <header class="main-header">
+        <a href="main.html" class="logo" th:href="@{/main}"><span class="logo-lg"><img src="dist/img/logo.png" alt="HITLAB" th:src="@{/dist/img/logo.png}"/></span></a>
         <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <a href="javascript:lnbControls()" class="sidebar-toggle" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-            <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <button type="button" class="btn btn-default" aria-label="Center Align">
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"> 로그아웃</span>
-                    </button>
+                    <a href="#" th:href="@{/}"><button type="button" class="btn btn-default btn-gray" aria-label="Center Align"><span class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;로그아웃</span></button></a>
                 </ul>
             </div>
         </nav>

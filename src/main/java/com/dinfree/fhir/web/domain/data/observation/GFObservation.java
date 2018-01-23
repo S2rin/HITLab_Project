@@ -23,7 +23,6 @@ public abstract class GFObservation extends GFData {
     String unit;
     String performer;
     Interpretation interpretation;
-    String managingOrganization;
 
     public abstract Interpretation calcInterpretation();
 
@@ -36,8 +35,7 @@ public abstract class GFObservation extends GFData {
         this.effective = new Date();
         this.value = 0;
         this.performer = "";
-        this.interpretation = Interpretation.NORMAL;
-        this.managingOrganization = "";
+        this.interpretation = Interpretation.NULL;
     }
 
     public GFObservation(String effective, double value, String performer) {
@@ -50,19 +48,6 @@ public abstract class GFObservation extends GFData {
         this.value = value;
         this.performer = performer;
         // this.interpretation = calcInterpretation();
-    }
-
-    public GFObservation(String effective, double value, String performer, String managingOrganization) {
-        this();
-        try {
-            this.effective = dateFormat.parse(effective);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.value = value;
-        this.performer = performer;
-        // this.interpretation = calcInterpretation();
-        this.managingOrganization = managingOrganization;
     }
 
     public static int getTotalNum() {

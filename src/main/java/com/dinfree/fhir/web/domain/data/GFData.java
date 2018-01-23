@@ -8,5 +8,5 @@ import lombok.Data;
 
 @Data
 public class GFData {
-    int id;
+    String id;
 }

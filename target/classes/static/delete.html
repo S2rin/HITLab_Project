@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        // dataType:json 은 사용하지 말것, 리턴 값이 반드시 json 인 경우
+        $(document).ready(function () {
+            $('#b1').click(function () {
+                var select = document.getElementById("resourceName");
+                var type = select.options[select.selectedIndex].value;
+                var did = $("#did").val();
+
+                var request = $.ajax({
+                    url: "/restapi/delete",
+                    dataType: "text",
+                    data: {resourceName: type, did: did},
+                    success: function (msg) {
+                        $("#result").html(msg);
+                    },
+                    error: function (msg) {
+                        $("#result").html(msg);
+                    }
+                });
+            })
+        })
+
+    </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HITLab | Web</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- css -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css"/>
+    <link rel="stylesheet" href="bootstrap/css/hitlab.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+</head>
+
+<body id="developer">
+
+<div class="wrapper">
+
+    <!-- header -->
+    <header class="main-header">
+        <a href="create.html" class="logo"><span class="logo-lg"><img src="dist/img/logo.png" alt="HITLAB"/></span></a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="javascript:lnbControls()" class="sidebar-toggle" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <a href="/"/><button type="button" class="btn btn-default btn-gray" aria-label="Center Align"><span
+                            class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;로그아웃</span></button>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- padding -->
+            <div class="search">
+
+            </div>
+            <!-- padding -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="treeview"><a href="create.html">Create</a></li>
+                <li class="treeview"><a href="read.html">Read</a></li>
+                <li class="treeview"><a href="update.html">Update</a></li>
+                <li class="active treeview"><a href="delete.html">Delete</a></li>
+                <li class="treeview"><a href="history.html">History</a></li>
+                <li class="treeview"><a href="validate.html">Validate</a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1><strong>표준기반 개인 건강정보 관리 플랫폼</strong><span>Gachon FHIR Web Platform</span></h1>
+        </section>
+
+        <section class="content">
+            <form method="post" action="/restapi/delete">
+                <h2 >Delete</h2> <h4 style = "margin-top: -10px"> Resource Type과 ID 값을 입력하면 해당하는 Resource를 서버에서 삭제합니다.</h4>
+                <div class="row" style = "margin-top: 20px">
+                    <div class="col-md-6">
+                        <div class="boxwrap bg-gray history">
+                            <div class="form-group has-feedback" style="margin-top: 50px">
+                                <label>Type</label>
+                                <select name="resourceName" id="resourceName" style="width : 200px; font-size: 20px">
+                                    <option value="" style="width = 100px">select</option>
+                                    <option value="Patient" style="font-size = 20px">Patient</option>
+                                    <option value="Observation" style="font-size = 20px">Observation</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group has-feedback">
+                                <label>ID</label>
+                                <input type="text" id="did" name="did">
+                            </div>
+                            <div class="pull-right" style="margin-top: 50px; margin-right: 20px">
+                                <input type="button" id="b1" class="btn btn-orange" value = "DELETE"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="boxwrap">
+                            <h4>Result</h4>
+                            <div class="form-group">
+                                <pre id="result" style="font-size: 18px;" class="form-control">result value</pre>
+                                <div class="pull-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /. row -->
+            </form>
+
+            <div class="url pull-right">
+                <p><span>참고 URL</span><a href="http://hapifhir.io/" target="_blank">http://hapifhir.io/</a> , <a
+                        href="http://hl7.org/fhir/" target="_blank">http://hl7.org/fhir/</a>
+                <p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.1
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+        reserved.
+    </footer>
+
+</div>
+
+
+<!-- Bootstrap 3.3.5 -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/app.min.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="plugins/chartjs/Chart.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+</body>
+</html>
